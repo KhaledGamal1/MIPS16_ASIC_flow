@@ -1,0 +1,72 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'mips_16' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+        -transition_time
+        -capacitance
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Sat Aug 15 03:11:50 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: WORST   Library: saed90nm_max_hvt
+Wire Load Model Mode: enclosed
+
+  Startpoint: pc_current_reg[6]
+              (rising edge-triggered flip-flop clocked by fun_clk)
+  Endpoint: pc_current_reg[13]
+            (rising edge-triggered flip-flop clocked by fun_clk)
+  Path Group: fun_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  mips_16            280000                saed90nm_max_hvt
+  mips_16_DW01_add_6 8000                  saed90nm_max_hvt
+
+  Point                           Cap     Trans      Incr       Path
+  ---------------------------------------------------------------------
+  clock fun_clk (rise edge)                          0.00       0.00
+  clock network delay (ideal)                        0.00       0.00
+  pc_current_reg[6]/CLK (DFFARX1_HVT)      0.00      0.00 #     0.00 r
+  pc_current_reg[6]/QN (DFFARX1_HVT)
+                                 1.48      0.31      0.91       0.91 f
+  U124/ZN (INVX0_HVT)            1.50      0.19      0.54       1.45 r
+  add_64/A[6] (mips_16_DW01_add_6)                   0.00       1.45 r
+  add_64/U48/ZN (INVX0_HVT)      2.65      0.17      0.57       2.01 f
+  add_64/U47/ZN (INVX1_HVT)      5.27      0.17      0.21       2.22 r
+  add_64/U45/Q (AND2X1_HVT)      3.52      0.23      1.01       3.24 r
+  add_64/U26/QN (NAND2X1_HVT)
+                                 3.92      0.30      0.48       3.72 f
+  add_64/U27/Q (OR2X1_HVT)       4.41      0.21      0.73       4.45 f
+  add_64/U10/Q (OR2X1_HVT)       2.07      0.17      0.67       5.12 f
+  add_64/U3/Q (OR2X1_HVT)        3.66      0.20      0.52       5.64 f
+  add_64/U7/QN (NOR2X1_HVT)      2.68      0.26      0.40       6.03 r
+  add_64/U6/ZN (IBUFFX4_HVT)     2.65      0.13      0.73       6.77 f
+  add_64/U33/ZN (INVX1_HVT)      2.90      0.12      0.18       6.94 r
+  add_64/U32/Q (XOR2X1_HVT)      4.20      0.28      0.63       7.57 r
+  add_64/SUM[13] (mips_16_DW01_add_6)                0.00       7.57 r
+  U66/Q (AO221X1_HVT)            1.23      0.30      5.04      12.61 r
+  pc_current_reg[13]/D (DFFARX1_HVT)       0.30      0.30      12.91 r
+  data arrival time                                            12.91
+
+  clock fun_clk (rise edge)                         15.00      15.00
+  clock network delay (ideal)                        0.00      15.00
+  clock uncertainty                                 -0.45      14.55
+  pc_current_reg[13]/CLK (DFFARX1_HVT)               0.00      14.55 r
+  library setup time                                -0.88      13.67
+  data required time                                           13.67
+  ---------------------------------------------------------------------
+  data required time                                           13.67
+  data arrival time                                           -12.91
+  ---------------------------------------------------------------------
+  slack (MET)                                                   0.75
+
+
+1

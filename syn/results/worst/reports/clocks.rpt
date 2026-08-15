@@ -1,0 +1,20 @@
+ 
+****************************************
+Report : clocks
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Sat Aug 15 03:45:54 2026
+****************************************
+
+Attributes:
+    d - dont_touch_network
+    f - fix_hold
+    p - propagated_clock
+    G - generated_clock
+    g - lib_generated_clock
+
+Clock          Period   Waveform            Attrs     Sources
+--------------------------------------------------------------------------------
+fun_clk        15.000   {0 7.5}                       {fun_clk}
+--------------------------------------------------------------------------------
+1
