@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version O-2018.06-SP1 for linux64 -- Jul 19, 2018
-#@ # Date:   Mon Aug 17 06:49:21 2026
+#@ # Date:   Mon Aug 17 18:36:45 2026
 #@ # Run by: ICer@IC_EDA
 #@ 
 
@@ -6822,10 +6822,11 @@ source ../script/syn.tcl
 #@ write_sdc ../results/$corner/outputs/${design}.sdc;	# Synopsys design constraints
 #@ 
 #@ 
-#@ 
+#@ set_svf -off
 #@ 
 #@ 
 #@ 
 #@ 
 #@ # -- End source ../script/syn.tcl
 
+quit

@@ -7,7 +7,7 @@ Report : timing
         -max_paths 2
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Mon Aug 17 06:51:35 2026
+Date   : Mon Aug 17 18:37:52 2026
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.

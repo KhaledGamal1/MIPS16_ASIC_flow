@@ -1,0 +1,177 @@
+**************************************************
+Report         : passing_points
+
+Reference      : Ref:/WORK/mips_16
+Implementation : Imp:/WORK/mips_16
+Version        : L-2016.03-SP1
+Date           : Mon Aug 17 20:09:00 2026
+**************************************************
+
+47 Passing compare points:
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[10]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_10_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[11]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_11_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[12]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_12_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[13]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_13_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[14]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_14_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[15]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_15_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[1]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_1_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[2]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_2_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[3]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_3_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[4]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_4_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[5]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_5_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[6]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_6_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[7]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_7_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[8]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_8_
+
+  Ref  DFF        Ref:/WORK/mips_16/pc_current_reg[9]
+  Impl DFF        Imp:/WORK/mips_16/pc_current_reg_9_
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[0]
+  Impl Port       Imp:/WORK/mips_16/alu_result[0]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[10]
+  Impl Port       Imp:/WORK/mips_16/alu_result[10]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[11]
+  Impl Port       Imp:/WORK/mips_16/alu_result[11]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[12]
+  Impl Port       Imp:/WORK/mips_16/alu_result[12]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[13]
+  Impl Port       Imp:/WORK/mips_16/alu_result[13]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[14]
+  Impl Port       Imp:/WORK/mips_16/alu_result[14]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[15]
+  Impl Port       Imp:/WORK/mips_16/alu_result[15]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[1]
+  Impl Port       Imp:/WORK/mips_16/alu_result[1]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[2]
+  Impl Port       Imp:/WORK/mips_16/alu_result[2]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[3]
+  Impl Port       Imp:/WORK/mips_16/alu_result[3]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[4]
+  Impl Port       Imp:/WORK/mips_16/alu_result[4]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[5]
+  Impl Port       Imp:/WORK/mips_16/alu_result[5]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[6]
+  Impl Port       Imp:/WORK/mips_16/alu_result[6]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[7]
+  Impl Port       Imp:/WORK/mips_16/alu_result[7]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[8]
+  Impl Port       Imp:/WORK/mips_16/alu_result[8]
+
+  Ref  Port       Ref:/WORK/mips_16/alu_result[9]
+  Impl Port       Imp:/WORK/mips_16/alu_result[9]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[0]
+  Impl Port       Imp:/WORK/mips_16/pc_out[0]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[10]
+  Impl Port       Imp:/WORK/mips_16/pc_out[10]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[11]
+  Impl Port       Imp:/WORK/mips_16/pc_out[11]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[12]
+  Impl Port       Imp:/WORK/mips_16/pc_out[12]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[13]
+  Impl Port       Imp:/WORK/mips_16/pc_out[13]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[14]
+  Impl Port       Imp:/WORK/mips_16/pc_out[14]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[15]
+  Impl Port       Imp:/WORK/mips_16/pc_out[15]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[1]
+  Impl Port       Imp:/WORK/mips_16/pc_out[1]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[2]
+  Impl Port       Imp:/WORK/mips_16/pc_out[2]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[3]
+  Impl Port       Imp:/WORK/mips_16/pc_out[3]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[4]
+  Impl Port       Imp:/WORK/mips_16/pc_out[4]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[5]
+  Impl Port       Imp:/WORK/mips_16/pc_out[5]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[6]
+  Impl Port       Imp:/WORK/mips_16/pc_out[6]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[7]
+  Impl Port       Imp:/WORK/mips_16/pc_out[7]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[8]
+  Impl Port       Imp:/WORK/mips_16/pc_out[8]
+
+  Ref  Port       Ref:/WORK/mips_16/pc_out[9]
+  Impl Port       Imp:/WORK/mips_16/pc_out[9]
+
+ [BBNet: multiply-driven net
+  BBPin: black-box pin
+  Cut:   cut-point
+  DFF:   non-constant DFF register
+  DFF0:  constant 0 DFF register
+  DFF1:  constant 1 DFF register
+  DFFX:  constant X DFF register
+  DFF0X: constrained 0X DFF register
+  DFF1X: constrained 1X DFF register
+  LAT:   non-constant latch register
+  LAT0:  constant 0 latch register
+  LAT1:  constant 1 latch register
+  LATX:  constant X latch register
+  LAT0X: constrained 0X latch register
+  LAT1X: constrained 1X latch register
+  LATCG: clock-gating latch register
+  TLA:   transparent latch register
+  TLA0X: transparent constrained 0X latch register
+  TLA1X: transparent constrained 1X latch register
+  Loop:  cycle break point
+  Port:  primary (top-level) port
+  Und:   undriven signal cut-point
+  Unk:   unknown signal cut-point]
+
+1

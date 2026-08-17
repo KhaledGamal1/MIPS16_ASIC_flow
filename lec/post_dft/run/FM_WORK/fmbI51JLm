@@ -1,0 +1,30 @@
+    29  # --------------- Read Implementation design files ------------- #
+    30  #######################################################################
+    31  read_verilog -container Imp -netlist "/mnt/hgfs/Shared_files/mips_16/dft/results/$corner/outputs/${design}.v"
+    32  set_implementation_design mips_16
+    33  set_top mips_16
+    34  # Test mode
+    35  set_constant Ref:/WORK/*/test_mode 0
+    36  set_constant Imp:/WORK/*/test_mode 0
+    37  # Matching compare points
+    38  match
+    39  # Verify
+    40  set successful [verify]
+    41  if {!successful} {
+	diagnose
+	analyze_points -failing
+	} else {
+	puts "successful"
+	}
+    42  set successful [verify]
+    43  if {!successful} {
+	diagnose
+	analyze_points -failing
+	} else {
+	puts "successful"
+	}
+    44  report_passing_points > ../reports/passing_points.rpt
+    45  report_failing_points > ../reports/failing_points.rpt
+    46  report_aborted_points > ../reports/aborted_points.rpt
+    47  report_unverified_points > ../reports/unverified_points.rpt
+    48  start_gui

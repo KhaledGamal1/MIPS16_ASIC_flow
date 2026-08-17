@@ -3,7 +3,7 @@
 Report : qor
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Mon Aug 17 06:51:32 2026
+Date   : Mon Aug 17 18:37:50 2026
 ****************************************
 
 
@@ -64,12 +64,12 @@ Date   : Mon Aug 17 06:51:32 2026
 
   Compile CPU Statistics
   -----------------------------------------
-  Resource Sharing:                    1.15
-  Logic Optimization:                  0.62
-  Mapping Optimization:                2.97
+  Resource Sharing:                    1.01
+  Logic Optimization:                  0.51
+  Mapping Optimization:                2.39
   -----------------------------------------
-  Overall Compile Time:                9.36
-  Overall Compile Wall Clock Time:     9.13
+  Overall Compile Time:                7.14
+  Overall Compile Wall Clock Time:     6.86
 
   --------------------------------------------------------------------
 

@@ -131,7 +131,7 @@ write_sdf ../results/$corner/outputs/${design}.sdf; 	# standard delay format
 write_sdc ../results/$corner/outputs/${design}.sdc;	# Synopsys design constraints
 
 
-
+set_svf -off
 
 
 
