@@ -20,7 +20,9 @@ set_output_delay -clock fun_clk -min [expr $CLK_PERIOD * 0.1] [all_outputs]
 # Prevent the tool from inserting beffuers through clock network
 set_ideal_network [get_clocks fun_clk]
 set_ideal_network [get_port fun_reset]
-
+set_ideal_network [get_port scan_clk]
+set_ideal_network [get_port scan_reset]
+set_ideal_network [get_port test_mode]
 
 #######################################################################
 	# --------------- Optimization ------------- #
@@ -29,6 +31,9 @@ set_ideal_network [get_port fun_reset]
 # set_max_area 0.0
 
 current_design mips_16
+
+# setting test mode signal for 0 which maps to the functional mode
+set_case_analysis 0 [get_ports test_mode]
 
 
 # both values are determined from .lib file so that it's an intermediate value to force the tool to do optimization and minimize the propagation delay

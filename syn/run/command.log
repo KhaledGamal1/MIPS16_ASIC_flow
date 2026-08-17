@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version O-2018.06-SP1 for linux64 -- Jul 19, 2018
-#@ # Date:   Sat Aug 15 03:08:38 2026
+#@ # Date:   Mon Aug 17 06:49:21 2026
 #@ # Run by: ICer@IC_EDA
 #@ 
 
@@ -6624,44 +6624,85 @@ source /home/synopsys/syn/O-2018.06-SP1/admin/setup/.synopsys_dc.setup
 
 #@ # -- End source /home/synopsys/syn/O-2018.06-SP1/admin/setup/.synopsys_dc.setup
 
-# Defining General Variables
-set worst_case         "saed90nm_max_hvt.db"
-set corner             "worst"
-# Tool Variables
-set_app_var search_path "/home/ICer/Downloads/Lib/synopsys/models"
-set_app_var target_library "$worst_case"
-set_app_var link_library "* $target_library"        # " * " is for Designware and symbol library
-#######################################################################
-# --------------- work setup ------------- #
-#######################################################################
-sh rm -rf work
-sh mkdir -p work
-define_design_lib work -path ./work
-#######################################################################
-# --------------- Design setup ------------- #
-#######################################################################
-# Design name
-set design mips_16
-# SVF file, important for Formal Verification
-set_svf ${design}.svf
-#######################################################################
-# --------------- Analyze RTL ------------- #
-#######################################################################
-# Check syntax errors and generate intermediate files
-analyze -library work -format verilog ../rtl/${design}.v
-#######################################################################
-# --------------- Elaborate ------------- #
-#######################################################################
-# Translate from RTL to getech netlist and check linting and design issues
-elaborate $design -lib work
-# Make Top Level Design
-current_design $design
-# Debug warnings through elaborate
-check_design
-#######################################################################
-# --------------- Constraints ------------- #
-#######################################################################
-source -e -v ../cons/cons.tcl
+source ../script/syn.tcl
+#@ # -- Starting source ../script/syn.tcl
+
+#@ #######################################################################
+#@ #		ASIC PHYSICAL DESIGN AUTOMATION SCRIPT 		      #
+#@ #######################################################################
+#@ # Author	: Khaled Gamal
+#@ # Project	: MIPS16
+#@ # Block/Top	: mips_16
+#@ # Technology	: saed90nm
+#@ # EDA Tool	: Synopsys Design Compiler (DC)
+#@ # Purpose	: Translate RTL to logic gates and initial met setup time by ideal clock.
+#@ # Usage		: dc_shell -f script/syn.tcl -output_log log/syn.log
+#@ # Prerequisites	: RTL clean and syntheizable
+#@ # Creation Date	: 2026-08-14
+#@ # Educational 	: ITI_summer_camp_2026_R3
+#@ #######################################################################
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- Library setup ------------- #
+#@ #######################################################################
+#@ 
+#@ # Defining General Variables
+#@ set worst_case         "saed90nm_max_hvt.db"
+#@ set corner             "worst"
+#@ 
+#@ 
+#@ # Tool Variables
+#@ set_app_var search_path 	"/home/ICer/Downloads/Lib/synopsys/models"
+#@ set_app_var target_library 	"$worst_case"
+#@ set_app_var link_library 	"* $target_library"        # " * " is for Designware and symbol library 
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- work setup ------------- #
+#@ #######################################################################
+#@ sh rm -rf work
+#@ sh mkdir -p work
+#@ define_design_lib work -path ./work
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- Design setup ------------- #
+#@ #######################################################################
+#@ 
+#@ # Design name
+#@ set design mips_16
+#@ 
+#@ # SVF file, important for Formal Verification
+#@ set_svf ${design}.svf
+#@ 
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- Analyze RTL ------------- #
+#@ #######################################################################
+#@ 
+#@ # Check syntax errors and generate intermediate files
+#@ analyze -library work -format verilog ../rtl/${design}.v
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- Elaborate ------------- #
+#@ #######################################################################
+#@ 
+#@ # Translate from RTL to getech netlist and check linting and design issues
+#@ elaborate $design -lib work
+#@ 
+#@ # Make Top Level Design 
+#@ current_design $design
+#@ 
+#@ # Debug warnings through elaborate
+#@ check_design
+#@ 
+#@ #######################################################################
+#@ # --------------- Constraints ------------- #
+#@ #######################################################################
+#@ source -e -v ../cons/cons.tcl
 #@ # -- Starting source ../cons/cons.tcl
 
 #@ 
@@ -6686,7 +6727,9 @@ source -e -v ../cons/cons.tcl
 #@ # Prevent the tool from inserting beffuers through clock network
 #@ set_ideal_network [get_clocks fun_clk]
 #@ set_ideal_network [get_port fun_reset]
-#@ 
+#@ set_ideal_network [get_port scan_clk]
+#@ set_ideal_network [get_port scan_reset]
+#@ set_ideal_network [get_port test_mode]
 #@ 
 #@ #######################################################################
 #@ # --------------- Optimization ------------- #
@@ -6695,6 +6738,9 @@ source -e -v ../cons/cons.tcl
 #@ # set_max_area 0.0
 #@ 
 #@ current_design mips_16
+#@ 
+#@ # setting test mode signal for 0 which maps to the functional mode
+#@ set_case_analysis 0 [get_ports test_mode]
 #@ 
 #@ 
 #@ # both values are determined from .lib file so that it's an intermediate value to force the tool to do optimization and minimize the propagation delay
@@ -6719,66 +6765,67 @@ source -e -v ../cons/cons.tcl
 #@ 
 #@ # -- End source ../cons/cons.tcl
 
-#######################################################################
-# --------------- Compile ------------- #
-#######################################################################
-set_critical_range 1.00 $design; # used to report the critical paths within the critical range specified
-# map all RTL MUXs to MUX cell instead of (AOI) cells to reduce congestion
-set compile_prefer_mux true
-set hdlin_infer_mux all
-# Mapping and Optimization
-compile -map_effort high -incremental_mapping
-compile -map_effort high -incremental_mapping
-report_timing -delay_type max -transition_time  -capacitance > setup_violated.rpt
-#######################################################################
-# --------------- Output Setup ------------- #
-#######################################################################
-sh rm -rf ../results/$corner
-sh mkdir -p ../results/$corner
-sh mkdir -p ../results/$corner/reports
-sh mkdir -p ../results/$corner/outputs
-#######################################################################
-# --------------- Reports ------------- #
-#######################################################################
-report_area > ../results/$corner/reports/synth_area.rpt
-report_cell> ../results/$corner/reports/synth_cells.rpt
-report_qor > ../results/$corner/reports/synth_qor.rpt
-report_power> ../results/$corner/reports/synth_power.rpt
-report_timing -delay_type max -max_path 2> ../results/$corner/reports/synth_timing_setup.rpt
-report_timing -delay_type max -slack_lesser_than 0 -max_paths 2> ../results/$corner/reports/synth_timing_setup_violated.rpt
-report_constraint -all_violators > ../results/$corner/reports/synth_violations.rpt
-sh rm -rf ../results/$corner
-sh mkdir -p ../results/$corner
-sh mkdir -p ../results/$corner/reports
-sh mkdir -p ../results/$corner/outputs
-report_area > ../results/$corner/reports/synth_area.rpt
-report_cell> ../results/$corner/reports/synth_cells.rpt
-report_cells> ../results/$corner/reports/synth_cells.rpt
-report_cell ../results/worst/reports/synth_cells.rpt
-report_qor > ../results/$corner/reports/synth_qor.rpt
-report_power> ../results/$corner/reports/synth_power.rpt
-report_timing -delay_type max -max_path 2> ../results/$corner/reports/synth_timing_setup.rpt
-report_timing -delay_type max -max_path 2 > ../results/$corner/reports/synth_timing_setup.rpt
-report_timing -delay_type max -slack_lesser_than 0 -max_paths 2 > ../results/$corner/reports/synth_timing_setup_violated.rpt
-report_constraint -all_violators > ../results/$corner/reports/synth_violations.rpt
-set verilogout_no_tri ture
-set verilogout_equation false
-change_names -rule verilog
-write -f ddc -hierarchy -output ../results/$corner/outputs/${design}.ddc
-write -hierarchy -format verilog -output ../results/$corner/outputs/${design}.v
-write_sdf ../results/$corner/outputs/${design}.sdf; # standard delay format
-write_sdf ../results/$corner/outputs/${design}.sdc;# Synopsys design constraints
-man verilogout_no_tri
-man verilogout_equation
-man change_names
-report_clocks
-report_clocks > ../results/$corner/reports/clocks.rpt
-man report_timing
-report_timing -delay_type max -max_paths 2
-report_timing -delay_type max -max_paths 10
-report_timing -delay_type min -max_paths 2> ../results/$corner/reports/synth_timing_hold.rpt
-report_timing -delay_type min -max_paths 2> ../results/$corner/reports/synth_timing_hold.rpt
-report_timing -delay_type min -max_paths 2 > ../results/$corner/reports/synth_timing_hold.rpt
-report_timing -delay_type min -max_paths 2 > ../results/worst/reports/synth_timing_hold.rpt
-report_power> ../results/$corner/reports/synth_power.rpt
-report_power > ../results/$corner/reports/synth_power.rpt
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- Compile ------------- #
+#@ #######################################################################
+#@ 
+#@ set_critical_range 1.00 $design; # used to report the critical paths within the critical range specified
+#@ 
+#@ # map all RTL MUXs to MUX cell instead of (AOI) cells to reduce congestion
+#@ set compile_prefer_mux true
+#@ set hdlin_infer_mux all
+#@ 
+#@ # Mapping and Optimization 
+#@ compile -map_effort high -incremental_mapping
+#@ compile -map_effort high -incremental_mapping
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- Output Setup ------------- #
+#@ #######################################################################
+#@ sh rm -rf 	../results/$corner
+#@ sh mkdir -p 	../results/$corner
+#@ sh mkdir -p 	../results/$corner/reports
+#@ sh mkdir -p 	../results/$corner/outputs
+#@ 
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- Reports ------------- #
+#@ #######################################################################
+#@ report_clocks 								> ../results/$corner/reports/clocks.rpt
+#@ report_area 								> ../results/$corner/reports/synth_area.rpt
+#@ report_cell 								> ../results/$corner/reports/synth_cells.rpt
+#@ report_qor 								> ../results/$corner/reports/synth_qor.rpt
+#@ report_power  								> ../results/$corner/reports/synth_power.rpt
+#@ report_timing -delay_type max -max_path 2 				> ../results/$corner/reports/synth_timing_setup.rpt
+#@ report_timing -delay_type max -slack_lesser_than 0 -max_paths 2 	> ../results/$corner/reports/synth_timing_setup_violated.rpt
+#@ report_timing -delay_type min -max_paths 2 				> ../results/$corner/reports/synth_timing_hold.rpt	
+#@ report_constraint -all_violators	 				> ../results/$corner/reports/synth_violations.rpt
+#@ 
+#@ 
+#@ #######################################################################
+#@ # --------------- Output ------------- #
+#@ #######################################################################
+#@ set verilogout_no_tri ture
+#@ set verilogout_equation false
+#@ change_names -rule verilog
+#@ 
+#@ # Netlist
+#@ write -f ddc -hierarchy -output ../results/$corner/outputs/${design}.ddc
+#@ write -hierarchy -format verilog -output ../results/$corner/outputs/${design}.v
+#@ 
+#@ # Another
+#@ write_sdf ../results/$corner/outputs/${design}.sdf; 	# standard delay format
+#@ write_sdc ../results/$corner/outputs/${design}.sdc;	# Synopsys design constraints
+#@ 
+#@ 
+#@ 
+#@ 
+#@ 
+#@ 
+#@ 
+#@ # -- End source ../script/syn.tcl
+

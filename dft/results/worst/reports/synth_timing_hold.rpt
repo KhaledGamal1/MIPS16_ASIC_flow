@@ -1,0 +1,57 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 2
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Mon Aug 17 07:41:30 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: WORST   Library: saed90nm_max_hvt
+Wire Load Model Mode: enclosed
+
+  Startpoint: pc_current_reg_14_
+              (rising edge-triggered flip-flop)
+  Endpoint: pc_out[14] (output port clocked by fun_clk)
+  Path Group: (none)
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  mips_16            280000                saed90nm_max_hvt
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  pc_current_reg_14_/CLK (SDFFARX1_HVT)                   0.00 #     0.00 r
+  pc_current_reg_14_/Q (SDFFARX1_HVT)                     1.62       1.62 f
+  pc_out[14] (out)                                        3.73       5.34 f
+  data arrival time                                                  5.34
+  --------------------------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: pc_current_reg_13_
+              (rising edge-triggered flip-flop)
+  Endpoint: pc_out[13] (output port clocked by fun_clk)
+  Path Group: (none)
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  mips_16            280000                saed90nm_max_hvt
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  pc_current_reg_13_/CLK (SDFFARX1_HVT)                   0.00 #     0.00 r
+  pc_current_reg_13_/Q (SDFFARX1_HVT)                     1.62       1.62 f
+  pc_out[13] (out)                                        3.73       5.34 f
+  data arrival time                                                  5.34
+  --------------------------------------------------------------------------
+  (Path is unconstrained)
+
+
+1

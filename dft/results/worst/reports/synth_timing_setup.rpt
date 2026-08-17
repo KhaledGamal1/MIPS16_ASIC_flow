@@ -1,0 +1,61 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'mips_16' contains 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 2
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Mon Aug 17 07:41:29 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: WORST   Library: saed90nm_max_hvt
+Wire Load Model Mode: enclosed
+
+  Startpoint: pc_current_reg_11_
+              (rising edge-triggered flip-flop)
+  Endpoint: pc_out[11] (output port clocked by fun_clk)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  mips_16            280000                saed90nm_max_hvt
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  pc_current_reg_11_/CLK (SDFFARX1_HVT)                   0.00 #     0.00 r
+  pc_current_reg_11_/Q (SDFFARX1_HVT)                     1.69       1.69 r
+  pc_out[11] (out)                                       19.43      21.11 r
+  data arrival time                                                 21.11
+  --------------------------------------------------------------------------
+  (Path is unconstrained)
+
+
+  Startpoint: pc_current_reg_15_
+              (rising edge-triggered flip-flop)
+  Endpoint: Scan_Data_Out
+            (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  mips_16            280000                saed90nm_max_hvt
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  pc_current_reg_15_/CLK (SDFFARX1_HVT)                   0.00 #     0.00 r
+  pc_current_reg_15_/Q (SDFFARX1_HVT)                     1.64       1.64 r
+  U323/Z (NBUFFX32_HVT)                                  10.26      11.90 r
+  Scan_Data_Out (out)                                     0.00      11.90 r
+  data arrival time                                                 11.90
+  --------------------------------------------------------------------------
+  (Path is unconstrained)
+
+
+1

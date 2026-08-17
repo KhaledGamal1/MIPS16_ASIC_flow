@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : area
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Mon Aug 17 07:42:59 2026
+****************************************
+
+Library(s) Used:
+
+    saed90nm_max_hvt (File: /home/ICer/Downloads/Lib/synopsys/models/saed90nm_max_hvt.db)
+
+Number of ports:                          431
+Number of nets:                         15032
+Number of cells:                        14668
+Number of combinational cells:          10382
+Number of sequential cells:              4274
+Number of macros/black boxes:               0
+Number of buf/inv:                       2833
+Number of references:                      30
+
+Combinational area:             155020.492531
+Buf/Inv area:                    64134.145387
+Noncombinational area:          130011.954346
+Macro/Black Box area:                0.000000
+Net Interconnect area:           40790.106432
+
+Total cell area:                285032.446877
+Total area:                     325822.553308
+1

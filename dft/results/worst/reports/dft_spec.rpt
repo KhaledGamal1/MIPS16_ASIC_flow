@@ -1,0 +1,42 @@
+ 
+****************************************
+Report : DFT signals
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Mon Aug 17 07:41:55 2026
+****************************************
+
+========================================
+TEST MODE: all_dft
+VIEW     : Specification
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+test_mode          TestMode            1         -         -         -
+Scan_Data_Out      ScanDataOut         -         -         -         -
+Scan_En            ScanEnable          1         -         -         Scan
+Scan_Data_In       ScanDataIn          -         -         Delay 0.0 -
+
+========================================
+TEST MODE: Internal_scan
+VIEW     : Specification
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+test_mode          TestMode            1         -         -         -
+Scan_Data_Out      ScanDataOut         -         -         -         -
+Scan_En            ScanEnable          1         -         -         Scan
+Scan_Data_In       ScanDataIn          -         -         Delay 0.0 -
+
+========================================
+TEST MODE: Mission_mode
+VIEW     : Specification
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+test_mode          TestMode            1         -         -         -
+Scan_Data_Out      ScanDataOut         -         -         -         -
+Scan_En            ScanEnable          1         -         -         Scan
+Scan_Data_In       ScanDataIn          -         -         Delay 0.0 -
+
+1

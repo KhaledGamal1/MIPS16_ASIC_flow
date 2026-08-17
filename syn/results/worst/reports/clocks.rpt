@@ -1,9 +1,11 @@
+Information: Updating graph... (UID-83)
+Warning: Design 'mips_16' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
  
 ****************************************
 Report : clocks
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Sat Aug 15 03:45:54 2026
+Date   : Mon Aug 17 06:51:31 2026
 ****************************************
 
 Attributes:
@@ -15,6 +17,6 @@ Attributes:
 
 Clock          Period   Waveform            Attrs     Sources
 --------------------------------------------------------------------------------
-fun_clk        15.000   {0 7.5}                       {fun_clk}
+fun_clk         15.00   {0 7.5}                       {fun_clk}
 --------------------------------------------------------------------------------
 1

@@ -1,0 +1,67 @@
+In mode: Internal_scan...
+  Design has scan chains in this mode
+  Design is scan routed
+  Post-DFT DRC enabled
+
+Information: Starting test design rule checking. (TEST-222)
+  Loading test protocol
+  ...basic checks...
+  ...basic sequential cell checks...
+  ...checking vector rules...
+  ...checking clock rules...
+  ...checking scan chain rules...
+  ...checking scan compression rules...
+  ...checking X-state rules...
+  ...checking tristate rules...
+  ...extracting scan details...
+
+-----------------------------------------------------------------
+  DRC Report
+
+  Total violations: 0
+
+-----------------------------------------------------------------
+
+
+Test Design rule checking did not find violations
+
+-----------------------------------------------------------------
+  Sequential Cell Report
+
+  0 out of 4240 sequential cells have violations
+
+-----------------------------------------------------------------
+
+SEQUENTIAL CELLS WITHOUT VIOLATIONS
+      *4240 cells are valid scan cells
+
+Information: Test design rule checking completed. (TEST-123)
+  Running test coverage estimation...
+ 129454 faults were added to fault list.
+ 0           38278  10913        13/0/0    86.18%      0.07
+ 0              42  10517       325/0/2    86.62%      5.71
+ 0              56      3      9988/0/2    99.97%     62.66
+ 
+            Pattern Summary Report
+ -----------------------------------------------
+ #internal patterns                           0
+ -----------------------------------------------
+ 
+
+     Uncollapsed Stuck Fault Summary Report
+ -----------------------------------------------
+ fault class                     code   #faults
+ ------------------------------  ----  ---------
+ Detected                         DT      68253
+ Possibly detected                PT          0
+ Undetectable                     UD      61183
+ ATPG untestable                  AU         15
+ Not detected                     ND          3
+ -----------------------------------------------
+ total faults                            129454
+ test coverage                            99.97%
+ -----------------------------------------------
+  Information: The test coverage above may be inferior
+               than the real test coverage with customized
+               protocol and test simulation library.
+1

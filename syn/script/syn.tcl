@@ -128,7 +128,7 @@ write -hierarchy -format verilog -output ../results/$corner/outputs/${design}.v
 
 # Another
 write_sdf ../results/$corner/outputs/${design}.sdf; 	# standard delay format
-write_sdf ../results/$corner/outputs/${design}.sdc;	# Synopsys design constraints
+write_sdc ../results/$corner/outputs/${design}.sdc;	# Synopsys design constraints
 
 
 

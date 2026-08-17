@@ -1,0 +1,46 @@
+ 
+****************************************
+Report : net fanout
+        -threshold 50
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Mon Aug 17 07:42:58 2026
+****************************************
+
+
+Operating Conditions: WORST   Library: saed90nm_max_hvt
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+mips_16                280000            saed90nm_max_hvt
+Mux2x1_0               ForQA             saed90nm_max_hvt
+instr_mem              ForQA             saed90nm_max_hvt
+control                ForQA             saed90nm_max_hvt
+register_file_test_1   16000             saed90nm_max_hvt
+JR_Control             ForQA             saed90nm_max_hvt
+ALUControl             ForQA             saed90nm_max_hvt
+alu                    8000              saed90nm_max_hvt
+data_memory_test_1     280000            saed90nm_max_hvt
+alu_DW01_sub_0         8000              saed90nm_max_hvt
+alu_DW01_add_0         8000              saed90nm_max_hvt
+Mux2x1_1               ForQA             saed90nm_max_hvt
+mips_16_DW01_add_0     8000              saed90nm_max_hvt
+
+
+Attributes:
+   dr - drc disabled
+    c - annotated capacitance
+    d - dont_touch
+    i - ideal_net
+    I - ideal_network
+    p - includes pin load
+    r - annotated resistance
+    h - high fanout
+
+Net                 Fanout   Attributes   Capacitance   Driver
+--------------------------------------------------------------------------------
+clk                   4240   d, I, h          0.00      U0_Mux2x1/U1/Q
+Scan_En               4240   d, I, h          0.00      Scan_En
+reg_file/n1            128   d, I             0.00      reg_file/U2/ZN
+1

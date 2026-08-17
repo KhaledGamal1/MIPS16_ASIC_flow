@@ -81,19 +81,20 @@
 /home/synopsys/syn/O-2018.06-SP1/auxx/gui/common/histogram/DialogNetCapacitance.tcl
 /home/synopsys/syn/O-2018.06-SP1/auxx/gui/common/schematic/DialogPathSchematicFanInOut.tcl
 /home/synopsys/syn/O-2018.06-SP1/auxx/gui/common/schematic/DialogPathSchematicAddPaths.tcl
-/home/ICer/ITI/labs/mips_16/syn/rtl/data_memory.v
-/home/ICer/ITI/labs/mips_16/syn/rtl/ALUControl.v
-/home/ICer/ITI/labs/mips_16/syn/rtl/control.v
-/home/ICer/ITI/labs/mips_16/syn/rtl/JR_Control.v
-/home/ICer/ITI/labs/mips_16/syn/rtl/register_file.v
-/home/ICer/ITI/labs/mips_16/syn/rtl/instr_mem.v
-/home/ICer/ITI/labs/mips_16/syn/rtl/alu.v
-/home/ICer/ITI/labs/mips_16/syn/rtl/Mux2x1.v
-/home/ICer/ITI/labs/mips_16/syn/rtl/mips_16.v
+/mnt/hgfs/Shared files/mips_16/syn/script/syn.tcl
+/mnt/hgfs/Shared files/mips_16/syn/rtl/data_memory.v
+/mnt/hgfs/Shared files/mips_16/syn/rtl/ALUControl.v
+/mnt/hgfs/Shared files/mips_16/syn/rtl/control.v
+/mnt/hgfs/Shared files/mips_16/syn/rtl/JR_Control.v
+/mnt/hgfs/Shared files/mips_16/syn/rtl/register_file.v
+/mnt/hgfs/Shared files/mips_16/syn/rtl/instr_mem.v
+/mnt/hgfs/Shared files/mips_16/syn/rtl/alu.v
+/mnt/hgfs/Shared files/mips_16/syn/rtl/Mux2x1.v
+/mnt/hgfs/Shared files/mips_16/syn/rtl/mips_16.v
 /home/ICer/Downloads/Lib/synopsys/models/saed90nm_max_hvt.db
 /home/synopsys/syn/O-2018.06-SP1/libraries/syn/gtech.db
 /home/synopsys/syn/O-2018.06-SP1/libraries/syn/standard.sldb
-/home/ICer/ITI/labs/mips_16/syn/cons/cons.tcl
+/mnt/hgfs/Shared files/mips_16/syn/cons/cons.tcl
 /home/ICer/synopsys_cache_O-2018.06-SP1/DW01/DW01_add/rpl/16/saed90nm_max_hvt_3079/element.ddc
 /home/ICer/synopsys_cache_O-2018.06-SP1/DW01/DW01_sub/rpl/16/saed90nm_max_hvt_3079/element.ddc
 /home/ICer/synopsys_cache_O-2018.06-SP1/DW01/DW01_cmp2/rpl/16/saed90nm_max_hvt_3079/element.ddc

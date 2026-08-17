@@ -8,7 +8,7 @@ Report : power
         -analysis_effort low
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Sat Aug 15 03:54:07 2026
+Date   : Mon Aug 17 06:51:35 2026
 ****************************************
 
 
@@ -46,12 +46,12 @@ Power-specific unit information :
     Leakage Power Units = 1pW
 
 
-  Cell Internal Power  =   6.1532 uW   (24%)
-  Net Switching Power  =  19.3419 uW   (76%)
+  Cell Internal Power  =   1.0159 uW   (69%)
+  Net Switching Power  = 450.9340 nW   (31%)
                          ---------
-Total Dynamic Power    =  25.4951 uW  (100%)
+Total Dynamic Power    =   1.4668 uW  (100%)
 
-Cell Leakage Power     = 248.9258 uW
+Cell Leakage Power     = 251.0623 uW
 
 
                  Internal         Switching           Leakage            Total
@@ -60,10 +60,10 @@ Power Group      Power            Power               Power              Power  
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network  1.8183e-02           17.9031        5.8936e+03           17.9272  (   6.53%)
-register       -3.0485e-01        5.4096e-02        9.0958e+07           90.7069 (  33.05%)
+clock_network      0.3762            0.0000        6.8592e+03            0.3830  (   0.15%)
+register       -7.9618e-01            0.1073        9.3991e+07           93.3022 (  36.95%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      6.4398            1.3847        1.5796e+08          165.7869  (  60.41%)
+combinational      1.4359            0.3436        1.5706e+08          158.8439  (  62.90%)
 --------------------------------------------------------------------------------------------------
-Total              6.1532 uW        19.3419 uW     2.4893e+08 pW       274.4209 uW
+Total              1.0159 uW         0.4509 uW     2.5106e+08 pW       252.5291 uW
 1

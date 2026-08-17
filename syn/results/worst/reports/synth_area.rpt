@@ -3,28 +3,30 @@
 Report : area
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Sat Aug 15 03:28:48 2026
+Date   : Mon Aug 17 06:51:31 2026
 ****************************************
 
+Information: Updating design information... (UID-85)
+Warning: Design 'mips_16' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
 Library(s) Used:
 
     saed90nm_max_hvt (File: /home/ICer/Downloads/Lib/synopsys/models/saed90nm_max_hvt.db)
 
 Number of ports:                          422
-Number of nets:                         14976
-Number of cells:                        14618
-Number of combinational cells:          10347
+Number of nets:                         15034
+Number of cells:                        14681
+Number of combinational cells:          10410
 Number of sequential cells:              4259
 Number of macros/black boxes:               0
-Number of buf/inv:                       2835
+Number of buf/inv:                       2848
 Number of references:                      30
 
-Combinational area:             155453.644569
-Buf/Inv area:                    64790.324603
-Noncombinational area:          106566.450012
+Combinational area:             155155.967735
+Buf/Inv area:                    64213.402986
+Noncombinational area:          106588.568420
 Macro/Black Box area:                0.000000
-Net Interconnect area:           27953.829152
+Net Interconnect area:           28035.284403
 
-Total cell area:                262020.094581
-Total area:                     289973.923733
+Total cell area:                261744.536156
+Total area:                     289779.820559
 1

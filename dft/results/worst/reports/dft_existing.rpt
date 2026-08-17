@@ -1,0 +1,151 @@
+ 
+****************************************
+Report : DFT signals
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Mon Aug 17 07:41:55 2026
+****************************************
+
+========================================
+TEST MODE: all_dft_user
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+========================================
+TEST MODE: all_dft_protocol
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+========================================
+TEST MODE: all_dft
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+========================================
+TEST MODE: Internal_scan_user
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+========================================
+TEST MODE: Internal_scan_protocol
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+========================================
+TEST MODE: Internal_scan
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+alu_result[9]      Constant            -         -
+alu_result[8]      Constant            -         -
+alu_result[7]      Constant            -         -
+alu_result[6]      Constant            -         -
+alu_result[5]      Constant            -         -
+alu_result[4]      Constant            -         -
+alu_result[3]      Constant            -         -
+alu_result[2]      Constant            -         -
+alu_result[1]      Constant            -         -
+alu_result[15]     Constant            -         -
+alu_result[14]     Constant            -         -
+alu_result[13]     Constant            -         -
+alu_result[12]     Constant            -         -
+alu_result[11]     Constant            -         -
+alu_result[10]     Constant            -         -
+alu_result[0]      Constant            -         -
+Scan_Data_Out      ScanDataOut         -         -
+Scan_Data_In       ScanDataIn          -         -
+Scan_En            ScanEnable          1         -
+========================================
+TEST MODE: Mission_mode_user
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+========================================
+TEST MODE: Mission_mode_protocol
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+========================================
+TEST MODE: Mission_mode
+VIEW     : Existing DFT
+========================================
+Port               SignalType          Active    Hookup    Timing    Usage
+----------         ----------          ------    ------    ------    -----
+scan_reset         Reset               1         -         P 100.0 R 45.0 F 55.0
+test_mode          Constant            1         -
+scan_clk           ScanMasterClock     1         -         P 100.0 R 45.0 F 55.0
+scan_clk           MasterClock         1         -         P 100.0 R 45.0 F 55.0
+alu_result[9]      Constant            -         -
+alu_result[9]      Functional          -         -
+alu_result[8]      Constant            -         -
+alu_result[8]      Functional          -         -
+alu_result[7]      Constant            -         -
+alu_result[7]      Functional          -         -
+alu_result[6]      Constant            -         -
+alu_result[6]      Functional          -         -
+alu_result[5]      Constant            -         -
+alu_result[5]      Functional          -         -
+alu_result[4]      Constant            -         -
+alu_result[4]      Functional          -         -
+alu_result[3]      Constant            -         -
+alu_result[3]      Functional          -         -
+alu_result[2]      Constant            -         -
+alu_result[2]      Functional          -         -
+alu_result[1]      Constant            -         -
+alu_result[1]      Functional          -         -
+alu_result[15]     Constant            -         -
+alu_result[15]     Functional          -         -
+alu_result[14]     Constant            -         -
+alu_result[14]     Functional          -         -
+alu_result[13]     Constant            -         -
+alu_result[13]     Functional          -         -
+alu_result[12]     Constant            -         -
+alu_result[12]     Functional          -         -
+alu_result[11]     Constant            -         -
+alu_result[11]     Functional          -         -
+alu_result[10]     Constant            -         -
+alu_result[10]     Functional          -         -
+alu_result[0]      Constant            -         -
+alu_result[0]      Functional          -         -
+
+1
