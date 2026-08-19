@@ -19,7 +19,7 @@
 #######################################################################
 
 # Defining General Variables
-set worst_case         "saed90nm_max_hvt.db"
+set worst_case         "saed90nm_max.db"
 set corner             "worst"
 
 

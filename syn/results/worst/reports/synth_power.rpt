@@ -1,4 +1,4 @@
-Loading db file '/home/ICer/Downloads/Lib/synopsys/models/saed90nm_max_hvt.db'
+Loading db file '/home/ICer/Downloads/Lib/synopsys/models/saed90nm_max.db'
 Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
 Warning: Design has unannotated primary inputs. (PWR-414)
 Warning: Design has unannotated sequential cell outputs. (PWR-415)
@@ -8,33 +8,32 @@ Report : power
         -analysis_effort low
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Mon Aug 17 18:37:52 2026
+Date   : Wed Aug 19 01:26:58 2026
 ****************************************
 
 
 Library(s) Used:
 
-    saed90nm_max_hvt (File: /home/ICer/Downloads/Lib/synopsys/models/saed90nm_max_hvt.db)
+    saed90nm_max (File: /home/ICer/Downloads/Lib/synopsys/models/saed90nm_max.db)
 
 
-Operating Conditions: WORST   Library: saed90nm_max_hvt
+Operating Conditions: WORST   Library: saed90nm_max
 Wire Load Model Mode: enclosed
 
 Design        Wire Load Model            Library
 ------------------------------------------------
-mips_16                280000            saed90nm_max_hvt
-Mux2x1_0               ForQA             saed90nm_max_hvt
-instr_mem              ForQA             saed90nm_max_hvt
-control                ForQA             saed90nm_max_hvt
-register_file          16000             saed90nm_max_hvt
-JR_Control             ForQA             saed90nm_max_hvt
-ALUControl             ForQA             saed90nm_max_hvt
-alu                    8000              saed90nm_max_hvt
-data_memory            280000            saed90nm_max_hvt
-mips_16_DW01_add_6     8000              saed90nm_max_hvt
-alu_DW01_sub_0         8000              saed90nm_max_hvt
-alu_DW01_add_0         8000              saed90nm_max_hvt
-Mux2x1_1               ForQA             saed90nm_max_hvt
+mips_16                280000            saed90nm_max
+Mux2x1_0               ForQA             saed90nm_max
+instr_mem              ForQA             saed90nm_max
+control                ForQA             saed90nm_max
+register_file          16000             saed90nm_max
+JR_Control             ForQA             saed90nm_max
+ALUControl             ForQA             saed90nm_max
+alu                    8000              saed90nm_max
+data_memory            280000            saed90nm_max
+alu_DW01_sub_0         8000              saed90nm_max
+alu_DW01_add_0         8000              saed90nm_max
+Mux2x1_1               ForQA             saed90nm_max
 
 
 Global Operating Voltage = 0.7  
@@ -46,12 +45,12 @@ Power-specific unit information :
     Leakage Power Units = 1pW
 
 
-  Cell Internal Power  =   1.0159 uW   (69%)
-  Net Switching Power  = 450.9340 nW   (31%)
+  Cell Internal Power  =   2.3348 uW   (79%)
+  Net Switching Power  = 636.2016 nW   (21%)
                          ---------
-Total Dynamic Power    =   1.4668 uW  (100%)
+Total Dynamic Power    =   2.9710 uW  (100%)
 
-Cell Leakage Power     = 251.0623 uW
+Cell Leakage Power     = 708.7529 uW
 
 
                  Internal         Switching           Leakage            Total
@@ -60,10 +59,10 @@ Power Group      Power            Power               Power              Power  
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network      0.3762            0.0000        6.8592e+03            0.3830  (   0.15%)
-register       -7.9618e-01            0.1073        9.3991e+07           93.3022 (  36.95%)
+clock_network      0.3857            0.0000        5.6426e+04            0.4421  (   0.06%)
+register       -4.9400e-02        8.0711e-02        3.3947e+08          339.5049 (  47.70%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational      1.4359            0.3436        1.5706e+08          158.8439  (  62.90%)
+combinational      1.9984            0.5555        3.6922e+08          371.7769  (  52.24%)
 --------------------------------------------------------------------------------------------------
-Total              1.0159 uW         0.4509 uW     2.5106e+08 pW       252.5291 uW
+Total              2.3348 uW         0.6362 uW     7.0875e+08 pW       711.7239 uW
 1

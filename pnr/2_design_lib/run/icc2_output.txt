@@ -1,0 +1,26 @@
+
+icc2_shell> start_gui
+icc2_shell> source ../script/dlib.tcl
+Error: Library directory '/mnt/hgfs/Shared_files/mips_16/pnr/2_design_lib/library/mips_16.dlib' already exists (LIB-009)
+Error: problem in create_lib
+        Use error_info for more info. (CMD-013)
+Information: script '/mnt/hgfs/Shared_files/mips_16/pnr/2_design_lib/script/dlib.tcl'
+        stopped at line 36 due to error. (CMD-081)
+Extended error info:
+problem in create_lib
+    while executing
+"create_lib -technology $TECH_FILE -ref_libs $reference_library  ../library/${design}.dlib"
+ -- End Extended Error Info
+icc2_shell> start_gui
+icc2_shell> open_block /mnt/hgfs/Shared_files/mips_16/pnr/2_design_lib/library/mips_16.dlib:mips_16_dlib.design
+Information: User units loaded from library 'saed90nm_max' (LNK-040)
+Opening block 'mips_16.dlib:mips_16_dlib.design' in edit mode
+Begin building search trees for block mips_16.dlib:mips_16_dlib.design
+Done building search trees for block mips_16.dlib:mips_16_dlib.design (time 1s)
+icc2_shell> link_block
+Using libraries: mips_16.dlib saed90nm_max saed90_ndm_physical_only
+Warning: In library mips_16.dlib, no block views exist for block mips_16. (LNK-064)
+Visiting block mips_16.dlib:mips_16_dlib.design
+Design 'mips_16' was successfully linked.
+1
+icc2_shell> quit

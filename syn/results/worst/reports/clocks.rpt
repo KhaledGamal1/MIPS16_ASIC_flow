@@ -5,7 +5,7 @@ Warning: Design 'mips_16' contains 1 high-fanout nets. A fanout number of 1000 w
 Report : clocks
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Mon Aug 17 18:37:49 2026
+Date   : Wed Aug 19 01:26:55 2026
 ****************************************
 
 Attributes:

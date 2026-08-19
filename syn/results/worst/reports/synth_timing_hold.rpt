@@ -6,12 +6,12 @@ Report : timing
         -max_paths 2
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Mon Aug 17 18:37:52 2026
+Date   : Wed Aug 19 01:26:58 2026
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
 
-Operating Conditions: WORST   Library: saed90nm_max_hvt
+Operating Conditions: WORST   Library: saed90nm_max
 Wire Load Model Mode: enclosed
 
   Startpoint: reg_file/reg_array_reg[6][1]
@@ -23,30 +23,30 @@ Wire Load Model Mode: enclosed
 
   Des/Clust/Port     Wire Load Model       Library
   ------------------------------------------------
-  mips_16            280000                saed90nm_max_hvt
-  register_file      16000                 saed90nm_max_hvt
+  mips_16            280000                saed90nm_max
+  register_file      16000                 saed90nm_max
 
   Point                                                   Incr       Path
   --------------------------------------------------------------------------
   clock fun_clk (rise edge)                               0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  reg_file/reg_array_reg[6][1]/CLK (DFFARX1_HVT)          0.00 #     0.00 r
-  reg_file/reg_array_reg[6][1]/Q (DFFARX1_HVT)            1.60       1.60 f
-  reg_file/U148/Q (AO22X1_HVT)                            0.86       2.46 f
-  reg_file/reg_array_reg[6][1]/D (DFFARX1_HVT)            0.03       2.49 f
-  data arrival time                                                  2.49
+  reg_file/reg_array_reg[6][1]/CLK (DFFARX1)              0.00 #     0.00 r
+  reg_file/reg_array_reg[6][1]/Q (DFFARX1)                0.69       0.69 f
+  reg_file/U148/Q (AO22X1)                                0.60       1.30 f
+  reg_file/reg_array_reg[6][1]/D (DFFARX1)                0.03       1.33 f
+  data arrival time                                                  1.33
 
   clock fun_clk (rise edge)                               0.00       0.00
   clock network delay (ideal)                             0.00       0.00
   clock uncertainty                                       0.45       0.45
-  reg_file/reg_array_reg[6][1]/CLK (DFFARX1_HVT)          0.00       0.45 r
+  reg_file/reg_array_reg[6][1]/CLK (DFFARX1)              0.00       0.45 r
   library hold time                                      -0.06       0.39
   data required time                                                 0.39
   --------------------------------------------------------------------------
   data required time                                                 0.39
-  data arrival time                                                 -2.49
+  data arrival time                                                 -1.33
   --------------------------------------------------------------------------
-  slack (MET)                                                        2.10
+  slack (MET)                                                        0.94
 
 
   Startpoint: reg_file/reg_array_reg[6][0]
@@ -58,30 +58,30 @@ Wire Load Model Mode: enclosed
 
   Des/Clust/Port     Wire Load Model       Library
   ------------------------------------------------
-  mips_16            280000                saed90nm_max_hvt
-  register_file      16000                 saed90nm_max_hvt
+  mips_16            280000                saed90nm_max
+  register_file      16000                 saed90nm_max
 
   Point                                                   Incr       Path
   --------------------------------------------------------------------------
   clock fun_clk (rise edge)                               0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  reg_file/reg_array_reg[6][0]/CLK (DFFARX1_HVT)          0.00 #     0.00 r
-  reg_file/reg_array_reg[6][0]/Q (DFFARX1_HVT)            1.60       1.60 f
-  reg_file/U147/Q (AO22X1_HVT)                            0.86       2.46 f
-  reg_file/reg_array_reg[6][0]/D (DFFARX1_HVT)            0.03       2.49 f
-  data arrival time                                                  2.49
+  reg_file/reg_array_reg[6][0]/CLK (DFFARX1)              0.00 #     0.00 r
+  reg_file/reg_array_reg[6][0]/Q (DFFARX1)                0.69       0.69 f
+  reg_file/U147/Q (AO22X1)                                0.60       1.30 f
+  reg_file/reg_array_reg[6][0]/D (DFFARX1)                0.03       1.33 f
+  data arrival time                                                  1.33
 
   clock fun_clk (rise edge)                               0.00       0.00
   clock network delay (ideal)                             0.00       0.00
   clock uncertainty                                       0.45       0.45
-  reg_file/reg_array_reg[6][0]/CLK (DFFARX1_HVT)          0.00       0.45 r
+  reg_file/reg_array_reg[6][0]/CLK (DFFARX1)              0.00       0.45 r
   library hold time                                      -0.06       0.39
   data required time                                                 0.39
   --------------------------------------------------------------------------
   data required time                                                 0.39
-  data arrival time                                                 -2.49
+  data arrival time                                                 -1.33
   --------------------------------------------------------------------------
-  slack (MET)                                                        2.10
+  slack (MET)                                                        0.94
 
 
 1

@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version O-2018.06-SP1 for linux64 -- Jul 19, 2018
-#@ # Date:   Mon Aug 17 18:36:45 2026
+#@ # Date:   Wed Aug 19 01:25:08 2026
 #@ # Run by: ICer@IC_EDA
 #@ 
 
@@ -6648,7 +6648,7 @@ source ../script/syn.tcl
 #@ #######################################################################
 #@ 
 #@ # Defining General Variables
-#@ set worst_case         "saed90nm_max_hvt.db"
+#@ set worst_case         "saed90nm_max.db"
 #@ set corner             "worst"
 #@ 
 #@ 
@@ -6829,4 +6829,9 @@ source ../script/syn.tcl
 #@ 
 #@ # -- End source ../script/syn.tcl
 
+sh pwd
+sh ll /home/ICer/Downloads/Lib/process/astro/tech/
+sh ll /home/ICer/Downloads/Lib/Technology_Kit/starrcxt/tluplus
+sh ls /home/ICer/Downloads/Lib/Technology_Kit/starrcxt/tluplus
+sh ls /home/ICer/Downloads/Lib/Technology_Kit/starrcxt/tluplus
 quit

@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Mon Aug 17 18:37:58 2026
+# Created by write_sdc on Wed Aug 19 01:27:04 2026
 
 ###################################################################
 set sdc_version 2.1
@@ -9,10 +9,6 @@ set_units -time ns -resistance MOhm -capacitance fF -voltage V -current uA
 set_max_fanout 5 [current_design]
 set_max_capacitance 50 [current_design]
 set_max_transition 0.5 [current_design]
-set_driving_cell -lib_cell IBUFFX2_HVT -pin ZN [get_ports fun_reset]
-set_driving_cell -lib_cell IBUFFX2_HVT -pin ZN [get_ports scan_clk]
-set_driving_cell -lib_cell IBUFFX2_HVT -pin ZN [get_ports scan_reset]
-set_driving_cell -lib_cell IBUFFX2_HVT -pin ZN [get_ports test_mode]
 set_load -pin_load 5 [get_ports {pc_out[15]}]
 set_load -pin_load 5 [get_ports {pc_out[14]}]
 set_load -pin_load 5 [get_ports {pc_out[13]}]

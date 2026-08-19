@@ -6,100 +6,90 @@ Report : timing
         -max_paths 2
 Design : mips_16
 Version: O-2018.06-SP1
-Date   : Mon Aug 17 18:37:52 2026
+Date   : Wed Aug 19 01:26:58 2026
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
 
-Operating Conditions: WORST   Library: saed90nm_max_hvt
+Operating Conditions: WORST   Library: saed90nm_max
 Wire Load Model Mode: enclosed
 
-  Startpoint: pc_current_reg[14]
+  Startpoint: pc_current_reg[13]
               (rising edge-triggered flip-flop clocked by fun_clk)
-  Endpoint: pc_current_reg[15]
+  Endpoint: pc_current_reg[14]
             (rising edge-triggered flip-flop clocked by fun_clk)
   Path Group: fun_clk
   Path Type: max
 
   Des/Clust/Port     Wire Load Model       Library
   ------------------------------------------------
-  mips_16            280000                saed90nm_max_hvt
-  mips_16_DW01_add_6 8000                  saed90nm_max_hvt
-
-  Point                                                   Incr       Path
-  --------------------------------------------------------------------------
-  clock fun_clk (rise edge)                               0.00       0.00
-  clock network delay (ideal)                             0.00       0.00
-  pc_current_reg[14]/CLK (DFFARX2_HVT)                    0.00 #     0.00 r
-  pc_current_reg[14]/Q (DFFARX2_HVT)                      1.98       1.98 r
-  add_64/A[14] (mips_16_DW01_add_6)                       0.00       1.98 r
-  add_64/U70/ZN (INVX1_HVT)                               4.75       6.73 f
-  add_64/U71/ZN (INVX2_HVT)                               0.25       6.98 r
-  add_64/U74/ZN (INVX0_HVT)                               0.39       7.38 f
-  add_64/U85/ZN (INVX1_HVT)                               0.18       7.56 r
-  add_64/U3/QN (NAND2X1_HVT)                              0.28       7.84 f
-  add_64/U2/Q (OR2X1_HVT)                                 0.51       8.35 f
-  add_64/U77/ZN (INVX0_HVT)                               0.19       8.54 r
-  add_64/U91/Q (XOR2X1_HVT)                               0.62       9.17 f
-  add_64/SUM[15] (mips_16_DW01_add_6)                     0.00       9.17 f
-  U238/ZN (INVX0_HVT)                                     1.91      11.08 r
-  U241/QN (OAI221X1_HVT)                                  2.56      13.64 f
-  pc_current_reg[15]/D (DFFARX2_HVT)                      0.29      13.92 f
-  data arrival time                                                 13.92
-
-  clock fun_clk (rise edge)                              15.00      15.00
-  clock network delay (ideal)                             0.00      15.00
-  clock uncertainty                                      -0.45      14.55
-  pc_current_reg[15]/CLK (DFFARX2_HVT)                    0.00      14.55 r
-  library setup time                                     -0.62      13.93
-  data required time                                                13.93
-  --------------------------------------------------------------------------
-  data required time                                                13.93
-  data arrival time                                                -13.92
-  --------------------------------------------------------------------------
-  slack (MET)                                                        0.00
-
-
-  Startpoint: pc_current_reg[3]
-              (rising edge-triggered flip-flop clocked by fun_clk)
-  Endpoint: pc_current_reg[6]
-            (rising edge-triggered flip-flop clocked by fun_clk)
-  Path Group: fun_clk
-  Path Type: max
-
-  Des/Clust/Port     Wire Load Model       Library
-  ------------------------------------------------
-  mips_16            280000                saed90nm_max_hvt
-  mips_16_DW01_add_6 8000                  saed90nm_max_hvt
+  mips_16            280000                saed90nm_max
 
   Point                                    Incr       Path
   -----------------------------------------------------------
   clock fun_clk (rise edge)                0.00       0.00
   clock network delay (ideal)              0.00       0.00
-  pc_current_reg[3]/CLK (DFFARX1_HVT)      0.00 #     0.00 r
-  pc_current_reg[3]/Q (DFFARX1_HVT)        1.63       1.63 r
-  add_64/A[3] (mips_16_DW01_add_6)         0.00       1.63 r
-  add_64/U32/ZN (INVX0_HVT)                4.05       5.67 f
-  add_64/U30/Z (NBUFFX2_HVT)               0.53       6.20 f
-  add_64/U20/Q (OR2X1_HVT)                 0.61       6.81 f
-  add_64/U7/Z (NBUFFX2_HVT)                0.54       7.36 f
-  add_64/U16/Q (XOR2X1_HVT)                0.64       8.00 r
-  add_64/SUM[6] (mips_16_DW01_add_6)       0.00       8.00 r
-  U240/Q (AO221X2_HVT)                     5.34      13.33 r
-  pc_current_reg[6]/D (DFFARX1_HVT)        0.30      13.63 r
-  data arrival time                                  13.63
+  pc_current_reg[13]/CLK (DFFARX1)         0.00 #     0.00 r
+  pc_current_reg[13]/QN (DFFARX1)          0.50       0.50 r
+  U221/ZN (INVX1)                          4.12       4.62 f
+  U372/QN (NAND2X0)                        7.46      12.07 r
+  U161/Q (XOR2X1)                          1.09      13.16 f
+  U160/QN (OAI21X1)                        0.66      13.83 r
+  pc_current_reg[14]/D (DFFARX1)           0.32      14.14 r
+  data arrival time                                  14.14
 
   clock fun_clk (rise edge)               15.00      15.00
   clock network delay (ideal)              0.00      15.00
   clock uncertainty                       -0.45      14.55
-  pc_current_reg[6]/CLK (DFFARX1_HVT)      0.00      14.55 r
-  library setup time                      -0.90      13.65
-  data required time                                 13.65
+  pc_current_reg[14]/CLK (DFFARX1)         0.00      14.55 r
+  library setup time                      -0.34      14.21
+  data required time                                 14.21
   -----------------------------------------------------------
-  data required time                                 13.65
-  data arrival time                                 -13.63
+  data required time                                 14.21
+  data arrival time                                 -14.14
   -----------------------------------------------------------
-  slack (MET)                                         0.02
+  slack (MET)                                         0.07
+
+
+  Startpoint: pc_current_reg[5]
+              (rising edge-triggered flip-flop clocked by fun_clk)
+  Endpoint: pc_current_reg[12]
+            (rising edge-triggered flip-flop clocked by fun_clk)
+  Path Group: fun_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  mips_16            280000                saed90nm_max
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock fun_clk (rise edge)                0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  pc_current_reg[5]/CLK (DFFARX1)          0.00 #     0.00 r
+  pc_current_reg[5]/QN (DFFARX1)           0.47       0.47 r
+  U209/QN (NOR2X0)                         2.47       2.94 f
+  U191/Q (AND2X1)                          0.58       3.52 f
+  U200/QN (NAND2X0)                        1.61       5.13 r
+  U196/ZN (INVX0)                          1.72       6.85 f
+  U172/Q (AND4X4)                          2.01       8.86 f
+  U193/QN (NAND2X0)                        1.65      10.51 r
+  U181/Q (XOR2X2)                          2.62      13.13 f
+  U180/QN (OAI21X1)                        0.67      13.79 r
+  pc_current_reg[12]/D (DFFARX1)           0.32      14.11 r
+  data arrival time                                  14.11
+
+  clock fun_clk (rise edge)               15.00      15.00
+  clock network delay (ideal)              0.00      15.00
+  clock uncertainty                       -0.45      14.55
+  pc_current_reg[12]/CLK (DFFARX1)         0.00      14.55 r
+  library setup time                      -0.34      14.21
+  data required time                                 14.21
+  -----------------------------------------------------------
+  data required time                                 14.21
+  data arrival time                                 -14.11
+  -----------------------------------------------------------
+  slack (MET)                                         0.10
 
 
 1
