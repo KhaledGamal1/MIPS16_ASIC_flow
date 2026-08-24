@@ -26,7 +26,7 @@ set corner             "worst"
 # Tool Variables
 set_app_var search_path 	"/home/ICer/Downloads/Lib/synopsys/models"
 set_app_var target_library 	"$worst_case"
-set_app_var link_library 	"* $target_library"        # " * " is for Designware and symbol library 
+set_app_var link_library 	"* $target_library"        # " * " is for Designware and symbol library
 
 
 #######################################################################
@@ -64,7 +64,7 @@ analyze -library work -format verilog ../rtl/${design}.v
 # Translate from RTL to getech netlist and check linting and design issues
 elaborate $design -lib work
 
-# Make Top Level Design 
+# Make Top Level Design
 current_design $design
 
 # Debug warnings through elaborate
@@ -86,7 +86,7 @@ set_critical_range 1.00 $design; # used to report the critical paths within the 
 set compile_prefer_mux true
 set hdlin_infer_mux all
 
-# Mapping and Optimization 
+# Mapping and Optimization
 compile -map_effort high -incremental_mapping
 compile -map_effort high -incremental_mapping
 
@@ -107,11 +107,11 @@ sh mkdir -p 	../results/$corner/outputs
 report_clocks 								> ../results/$corner/reports/clocks.rpt
 report_area 								> ../results/$corner/reports/synth_area.rpt
 report_cell 								> ../results/$corner/reports/synth_cells.rpt
-report_qor 								> ../results/$corner/reports/synth_qor.rpt
+report_qor 								    > ../results/$corner/reports/synth_qor.rpt
 report_power  								> ../results/$corner/reports/synth_power.rpt
 report_timing -delay_type max -max_path 2 				> ../results/$corner/reports/synth_timing_setup.rpt
 report_timing -delay_type max -slack_lesser_than 0 -max_paths 2 	> ../results/$corner/reports/synth_timing_setup_violated.rpt
-report_timing -delay_type min -max_paths 2 				> ../results/$corner/reports/synth_timing_hold.rpt	
+report_timing -delay_type min -max_paths 2 				> ../results/$corner/reports/synth_timing_hold.rpt
 report_constraint -all_violators	 				> ../results/$corner/reports/synth_violations.rpt
 
 

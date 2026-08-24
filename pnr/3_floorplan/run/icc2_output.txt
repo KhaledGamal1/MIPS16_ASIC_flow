@@ -1,0 +1,422 @@
+
+icc2_shell> man write_def
+2.  Synopsys Commands                                        Command Reference
+                                   write_def
+
+NAME
+       write_def
+              Writes a DEF file from a given design.
+
+SYNTAX
+       string write_def
+              [-compress method]
+              [-units units_per_micron]
+              [-include include_list]
+              [-exclude exclude_list]
+              [-objects objects]
+              [-version version]
+              [-convert_sites { {from_site to_site} ... }
+              [-include_tech_via_definitions]
+              [-via_as_fixed]
+              [-routed_nets]
+              [-bus_delimiters bus_bit_chars]
+              [-traverse_physical_hierarchy]
+              [-no_marker_layer]
+              def_file_name
+              [-include_physical_status include_physical_status_list]
+              [-exclude_physical_status exclude_physical_status_list]
+              [-only_master_variant]
+              [-cell_types cell_types_list]
+              [-net_types net_types_list]
+              [-include_pad_owned_terminals]
+              [-design design]
+
+   Data Types
+       design                        string
+       method                        string
+       units_per_micron              int
+       include_list                  list
+       exclude_list                  list
+       objects                       collection
+       version                       string
+       from_site                     string
+       to_site                       string
+       bus_bit_chars                 string
+       def_file_name                 string
+       include_physical_status_list  list
+       exclude_physical_status_list  list
+       cell_types_list               list
+       net_types_list               list
+
+ARGUMENTS
+       -compress method
+              Specifies  file  compression  format.  The only format currently
+              supported is gzip. By default, DEF files are written  in  uncom-
+              pressed text format.
+
+       -units units_per_micron
+              Specifies  the  number  of units per micron in the DEF file. All
+              database length units are scaled accordingly in the  output  DEF
+              file.  If  not  specified, the units per micron is obtained from
+              the technology length precision.  Valid  values  are  100,  200,
+              1000, 2000, 10000, and 20000.
+
+       -include include_list
+              Specifies  which optional constructs and object types to include
+              in the output DEF file. The output DEF file always contains  the
+              basic DEF items: version, divider character, bus bit characters,
+              design name, units, and die area.  When  you  use  the  -include
+              option, only the listed optional constructs and object types are
+              included in the generated DEF file. These are the optional  con-
+              structs and object types:
+
+              blockages
+              bounds
+              cells
+              fills
+              nets
+              pg_metal_fills
+              ports
+              routing_rules
+              rows_tracks
+              scanchains
+              specialnets
+              vias
+              cut_metal
+
+       -exclude exclude_list
+              Specifies  which optional constructs and object types to exclude
+              from the output DEF file. When you use this option, all  of  the
+              optional  constructs and object types are included in the gener-
+              ated DEF file except for those specified in the exclusion  list.
+
+              When  you  use  neither  the  -include  nor -exclude option, the
+              default behavior is to write out all the optional constructs and
+              object types.
+
+       -objects objects
+              Specifies  a collection of objects to write out to the DEF file.
+              The objects can  be  physical  cells,  physical  nets,  physical
+              ports,   routing_blockage   (non-reserved),   placement_blockage
+              (hard, soft, partial), move bounds, rows, net shapes  and  vias.
+              The  output DEF file contains only the objects specified by this
+              option, unless you also use the -include or -exclude option.
+
+              o If cells are specified, they are  written  to  the  COMPONENTS
+                section, and all other cells are omitted.
+              o  If  nets  are  specified, they are written to the SPECIALNETS
+                and/or NETS sections, and all other nets are omitted.
+              o If ports are specified, they are written to the PINS  section,
+                and all other ports are omitted.
+              o  If blockages are specified, they are written to the BLOCKAGES
+                section, and all other blockages are omitted.
+              o If move bounds are specified, they are written to the  REGIONS
+                and GROUPS sections, and all other move bounds are omitted.
+              o  If  net shapes and/or vias are specified, they are written to
+                the SPECIALNETS and/or NETS sections,  and  all  other  shapes
+                and/or  vias  and the net connections are omitted. You can use
+                the set_app_options  -name  file.def.skip_connection_of_incom-
+                plete_net  -value  false  command  before write_def command to
+                write the net connections.
+
+       -version version
+              Specifies the DEF syntax version. Valid values are 5.7 and  5.8.
+              The default is DEF version 5.7.
+
+       -convert_sites { {from_site to_site} ... }
+              Specifies a list of site name pairs, with each pair representing
+              a map from one site name to another site name. All rows of  site
+              from_site are written as rows of to_site.
+
+       -include_tech_via_definitions
+              Includes  all  via definitions in the technology file, including
+              those not used in  the  design,  in  the  output  DEF  file.  By
+              default,  only via definitions present in the design are written
+              out to the DEF VIAS section.
+
+       -via_as_fixed
+              Indicates that all the via definitions are written out as  fixed
+              vias in the output DEF file.
+
+       -routed_nets
+              Indicates  that  all the nets written out in the output DEF file
+              are routed nets i.e. has atleast one shape associated it.
+
+       -bus_delimiters bus_bit_chars
+              Specifies the bus bit characters to use in the output DEF. Valid
+              values  are  "[]", "{}", "()", and "<>". When specified, the DEF
+              BUSBITCHARS statement and bus names are written out using  these
+              bus bit characters.
+
+       -traverse_physical_hierarchy
+              Indicates  writing  the  design information across all levels of
+              the physical hierarchy to DEF file.
+                nets            If the net crosses physical hierarchy, the sub-block
+                                nets are not written out, but all their wiring shapes
+                                are superimposed onto the net and written out. All the
+                                nets, which does not cross physical hierarchy, can be
+                                written out.
+
+                pins            Sub-block pins are not written out, but all their shapes
+                                can be superimposed onto the connected net and written out.
+
+                via definitions and bounds
+                                If there is a name collision between top and sub block
+                                objects, the sub block objects are written out with block
+                                name prefix.
+
+                routing rules   If a routing rule exists in the sub block and matches a
+                                routing rule that already exists in the top block, the
+                                sub block routing rule is not written out. If two routing
+                                rules have the same name but they are different in fact,
+                                the sub block routing rule is written out with the block
+                                name prefix.
+
+                cells, rows, blockages and tracks
+                                They can be written out from each level of the physical
+                                hierarchy.
+
+       -no_marker_layer
+              Indicates disabling the writing of marker layers.
+
+       def_file_name
+              Specifies the name of the DEF file to be written.  If  the  file
+              already exists, it is overwritten. If the name ends with the .gz
+              extension, it is compressed using the gzip format.
+
+       -include_physical_status include_physical_status_list
+              Specifies which cells to include in the output DEF file based on
+              their  physical  status.   When  you use this option, all of the
+              specified cells are excluded in the generated  DEF  file  except
+              for   those   whose   physical   status   is  specified  in  the
+              include_physical_status_list.  These are the  optional  physical
+              status:
+              unplaced
+              placed
+              legalize_only
+              application_fixed
+              fixed
+              locked
+              all
+
+       -exclude_physical_status exclude_physical_status_list
+              Specifies which cells to exclude in the output DEF file based on
+              their physical status.  When you use this  option,  all  of  the
+              specified cell are included in the generated DEF file except for
+              those whose physical status is specified in  the  exclude_physi-
+              cal_status_list.
+
+              -include_physical_status  and -exclude_physical_status are mutu-
+              ally exclusive.
+
+       -only_master_variant
+              Indicates that all the instances of  variants  are  replaced  by
+              instances of the masters.
+
+       -cell_types cell_types_list
+              Specifies which cells to include in the output DEF file based on
+              their types.  When you use this option,  all  of  the  specified
+              cells  are  excluded  in the generated DEF file except for those
+              whose cell types is specified in the cell_types_list.  These are
+              the specifiable cell types:
+
+              corner
+              end_cap
+              pad
+              flip_chip_pad
+              flip_chip_driver
+              pad_spacer
+              macro
+              lib_cell
+
+              This  option  provides  additional  level of filtering when used
+              along with -include_physical_status  and  -exclude_physical_sta-
+              tus.
+
+       -net_types net_types_list
+              Specifies  which nets to include in the output DEF file based on
+              their types.  When you use this option,  all  of  the  specified
+              nets  are  excluded  in  the generated DEF file except for those
+              whose net types is specified in the net_types_list.   These  are
+              the specifiable net types:
+
+              signal
+              power
+              ground
+              clock
+
+       -include_pad_owned_terminals
+              Includes  port terminals having is_owned_by_pad attribute values
+              of true. If the port preferred_pin attribute is  set,  then  the
+              preferred pin terminal is output. Otherwise if the port die_side
+              attribute is set, then terminals on the  die  side  are  output.
+              Otherwise  all  such  terminals are output. Without this option,
+              such terminals are output if and only if their  is_def_duplicate
+              attribute values are true.
+
+       -design design
+              Specifies the design (block) to be written as a DEF format.  The
+              default is the current block.
+
+DESCRIPTION
+       This command writes the current or given design to a DEF file,  includ-
+       ing  the  physical layout, netlist, and design constraints. If the cur-
+       rent design is not linked, it is automatically linked and then  written
+       out.
+
+       For  the  shapes which have no nets association, only when they are cut
+       metal, or special wire extension, or metal fill they  will  be  written
+       out, otherwise, they will not.
+
+       The  -include and -exclude options are mutually exclusive. When you use
+       the -include option, the DEF contains the  basic  DEF  items  (version,
+       divider  character,  bus  bit  characters,  design name, units, and die
+       area) and the objects specified with this  option.  When  you  use  the
+       -exclude  option,  the  DEF  contains everything except for the objects
+       specified with this option.
+
+       When neither the -include nor -exclude  option  is  used,  the  default
+       behavior  is  to write out everything. However, if you use the -objects
+       option, the output includes only the objects specified in the  -objects
+       argument.
+
+       These are the valid values for the include_list and exclude_list:
+         blockages            Routing and placement blockage definitions
+                              defined in the DEF BLOCKAGES section.
+
+         bounds               Move bound definitions defined in the
+                              DEF REGIONS and GROUPS sections.
+
+         cells                Cell definitions defined in the
+                              DEF COMPONENTS section.
+
+         fills                Floating metal fills defined in the
+                              DEF FILLS section.
+
+         nets                 Regular net definitions defined in the
+                              DEF NETS section.
+
+         pg_metal_fills       Special net power and ground net fill
+                              shapes defined in the DEF SPECIALNETS
+                              section.
+
+         ports                Port definitions defined in the DEF PINS
+                              section.
+
+         routing_rules        Nondefault routing rule definitions
+                              in the DEF NONDEFAULTRULES section.
+
+         rows_tracks          Row and track definitions defined with the
+                              DEF ROW and TRACKS statements.
+
+         scanchains           Scan chain definitions in the
+                              DEF SCANCHAINS section.
+
+         specialnets          Special net definitions, except power and
+                              ground net fill shapes, in the
+                              DEF SPECIALNETS section. Power and ground
+                              net fill shapes are specified by the option
+                              value, pg_metal_fills.
+
+         vias                 Via definitions defined in the DEF VIAS
+                              section.
+
+         cut_metal            Shapes on the cut-metal layers, and metal shapes
+                              under cut-metal shapes.
+
+         These are the valid value only for the exclude_list:
+
+         non_mask_purpose     Shapes of LayerDataType with nonMask=1 will be
+                              excluded from the DEF.
+
+EXAMPLES
+       The following example writes a compressed DEF file using 1000 units per
+       micron:
+         prompt> write_def -compress gzip -units 1000 top.def
+
+       The following example writes a DEF file  that  includes  the  floorplan
+       data and excludes all other optional constructs and object types.
+         prompt> write_def -include {rows_tracks bounds cells blockages} fp.def
+
+       The  following  example  writes  a  DEF  file that excludes all special
+       wiring but includes all other optional constructs and object types.
+         prompt> write_def -exclude {specialnets pg_metal_fills} no_special.def
+
+SEE ALSO
+       read_def(2)
+       set_app_options(2)
+
+                          Version O-2018.06-SP1
+            Copyright (c) 2018 Synopsys, Inc. All rights reserved.
+icc2_shell> source ../script/floorplan.tcl
+Information: User units loaded from library 'saed90nm_max' (LNK-040)
+Opening block 'mips_16.dlib:mips_16_dlib.design' in edit mode
+Information: Overwriting block 'mips_16_floorplan.design' in library 'mips_16.dlib'. (DES-025)
+Begin building search trees for block mips_16.dlib:mips_16_floorplan.design
+Done building search trees for block mips_16.dlib:mips_16_floorplan.design (time 0s)
+Information: The design specific attribute override for layer 'M1' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Information: The design specific attribute override for layer 'M3' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Information: The design specific attribute override for layer 'M5' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Information: The design specific attribute override for layer 'M7' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Information: The design specific attribute override for layer 'M9' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Warning: No layer objects matched 'MRDL' (SEL-004)
+Information: The design specific attribute override for layer 'M2' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Information: The design specific attribute override for layer 'M4' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Information: The design specific attribute override for layer 'M6' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Information: The design specific attribute override for layer 'M8' is set in the current block 'mips_16_floorplan', because the actual library setting may not be overwritten. (ATTR-12)
+Using libraries: mips_16.dlib saed90nm_max saed90_ndm_physical_only
+Warning: In library mips_16.dlib, no block views exist for block mips_16. (LNK-064)
+Visiting block mips_16.dlib:mips_16_floorplan.design
+Design 'mips_16' was successfully linked.
+Removing existing floorplan objects
+Creating core...
+Core utilization ratio = 60.14%
+Unplacing all cells...
+Creating site array...
+Creating routing tracks...
+Initializing floorplan completed.
+
+Min routing layer: M1
+Max routing layer: M9
+
+
+Number of block ports: 37
+Number of block pin locations assigned from router: 0
+Number of PG ports on blocks: 0
+Number of pins created: 37
+CPU Time for Pin Placement: 00:00:00.01u 00:00:00.00s 00:00:00.01e: 
+Total Pin Placement CPU Time: 00:00:00.02u 00:00:00.00s 00:00:00.02e: 
+Error: Errors detected during redirect
+        Use error_info for more info. (CMD-013)
+Information: script '/mnt/hgfs/Shared_files/mips_16/pnr/3_floorplan/script/floorplan.tcl'
+        stopped at line 120 due to error. (CMD-081)
+Extended error info:
+Errors detected during redirect
+    while executing
+"write_def                      > ../results/outputs/floorplan.def                      "
+ -- End Extended Error Info
+icc2_shell> write_def   ../results/outputs/floorplan.def
+****************************************
+Report : Data Mismatches
+Version: O-2018.06-SP1
+Date   : Sun Aug 23 23:30:20 2026
+****************************************
+No mismatches exist on the design.
+---------------------------------------
+Number of Written DEF Constructs
+---------------------------------------
+VERSION                        : 1
+DIVIDERCHAR                    : 1
+BUSBITCHARS                    : 1
+DESIGN                         : 1
+UNITS                          : 1
+PROPERTYDEFINITIONS            : 1
+DIEAREA                        : 1
+ROW                            : 205
+TRACKS                         : 18
+COMPONENTS                     : 13831
+PINS                           : 37
+PINPROPERTIES                  : 37
+NETS                           : 13881
+1
+icc2_shell> 

@@ -1,0 +1,24 @@
+****************************************
+Report : report_utilization
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Sun Aug 23 23:28:23 2026
+****************************************
+Utilization Ratio:			0.6014
+Utilization options:
+ - Area calculation based on:		site_row of block mips_16_floorplan
+ - Categories of objects excluded:	hard_macros macro_keepouts soft_macros io_cells hard_blockages 
+Total Area:				349327.8720
+Total Capacity Area:			349327.8720
+Total Area of cells:			210072.2688
+Area of excluded objects:
+ - hard_macros         :		0.0000
+ - macro_keepouts      :		0.0000
+ - soft_macros         :		0.0000
+ - io_cells            :		0.0000
+ - hard_blockages      :		0.0000
+
+Utilization of site-rows with:
+ - Site 'unit':				0.6014
+
+0.6014
