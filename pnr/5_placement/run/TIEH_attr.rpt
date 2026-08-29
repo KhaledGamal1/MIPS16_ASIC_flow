@@ -1,0 +1,119 @@
+****************************************
+Report : Attribute
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Sat Aug 29 10:00:02 2026
+****************************************
+
+Design          Object          Type        Attribute Name        Value
+--------------------------------------------------------------------------------
+saed90nm_max/TIEH saed90nm_max/TIEH orientations allowable_orientation R0 R180 MX MY
+saed90nm_max/TIEH saed90nm_max/TIEH boolean always_on             false
+saed90nm_max/TIEH saed90nm_max/TIEH area    area                  4.60800000
+saed90nm_max/TIEH saed90nm_max/TIEH string  base_name             TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH rect    bbox                  {0.0000 -0.0800} {1.6000 2.9600}
+saed90nm_max/TIEH saed90nm_max/TIEH collection block              saed90nm_max:TIEH.timing
+saed90nm_max/TIEH saed90nm_max/TIEH string  block_name            TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH coord_list boundary           {0.0000 0.0000} {0.0000 2.8800} {1.6000 2.8800} {1.6000 0.0000}
+saed90nm_max/TIEH saed90nm_max/TIEH rect    boundary_bbox         {0.0000 0.0000} {1.6000 2.8800}
+saed90nm_max/TIEH saed90nm_max/TIEH collection boundary_bounding_box {0.0000 0.0000} {1.6000 2.8800}
+saed90nm_max/TIEH saed90nm_max/TIEH collection bounding_box       {0.0000 -0.0800} {1.6000 2.9600}
+saed90nm_max/TIEH saed90nm_max/TIEH string  cell_footprint        TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH string  cmog_class            a0
+saed90nm_max/TIEH saed90nm_max/TIEH collection design             TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH string  design_name           TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH string  design_type           lib_cell
+saed90nm_max/TIEH saed90nm_max/TIEH boolean disable_timing        false
+Information: The returned value for lib_cell 'saed90nm_max:TIEH.timing' is the design specific attribute override defined within the current block 'mips_16_placement'. (ATTR-11)
+saed90nm_max/TIEH saed90nm_max/TIEH boolean dont_touch            false
+Information: The returned value for lib_cell 'saed90nm_max:TIEH.timing' is the design specific attribute override defined within the current block 'mips_16_placement'. (ATTR-11)
+saed90nm_max/TIEH saed90nm_max/TIEH boolean dont_use              false
+saed90nm_max/TIEH saed90nm_max/TIEH int     ebst_processed        2
+Information: The returned value for lib_cell 'saed90nm_max:TIEH.timing' is the design specific attribute override defined within the current block 'mips_16_placement'. (ATTR-11)
+saed90nm_max/TIEH saed90nm_max/TIEH string  excluded_purposes     
+saed90nm_max/TIEH saed90nm_max/TIEH string  extended_name         /mnt/hgfs/Shared_files/mips_16/pnr/1_ndm/ndm/saed90nm_max.ndm:saed90nm_max/TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH boolean frame_update          false
+saed90nm_max/TIEH saed90nm_max/TIEH string  full_name             saed90nm_max/TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH string  function_class        a0
+saed90nm_max/TIEH saed90nm_max/TIEH string  function_id           a0.0
+saed90nm_max/TIEH saed90nm_max/TIEH boolean has_multi_power_rails false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean has_timing_model      true
+saed90nm_max/TIEH saed90nm_max/TIEH distance height               2.8800
+Information: The returned value for lib_cell 'saed90nm_max:TIEH.timing' is the design specific attribute override defined within the current block 'mips_16_placement'. (ATTR-11)
+saed90nm_max/TIEH saed90nm_max/TIEH string  included_purposes     all
+saed90nm_max/TIEH saed90nm_max/TIEH string  input_voltage_range   
+Information: Attribute is_black_box will be obsoleted, please use design_type instead. (ATTR-14)
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_black_box          false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_combinational      true
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_current            false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_diff_level_shifter false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_diode_cell         false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_enable_level_shifter false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_etm_moded_cell     false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_fall_edge_triggered false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_hierarchical       false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_implicit           true
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_integrated_clock_gating_cell false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_isolation          false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_level_shifter      false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_linked             false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_memory_cell        false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_modified           false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_mux                false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_negative_level_sensitive false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_open               true
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_positive_level_sensitive false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_power_switch       false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_remote             false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_retention          false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_rise_edge_triggered false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_sequential         false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_shared_timing_model false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_soi                false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean is_three_state        false
+saed90nm_max/TIEH saed90nm_max/TIEH string  label_name            
+saed90nm_max/TIEH saed90nm_max/TIEH string  last_modified         Wed Aug 19 01:36:02 2026
+saed90nm_max/TIEH saed90nm_max/TIEH string  last_saved            Wed Aug 19 01:36:06 2026
+saed90nm_max/TIEH saed90nm_max/TIEH collection lib                saed90nm_max
+saed90nm_max/TIEH saed90nm_max/TIEH string  lib_name              saed90nm_max
+saed90nm_max/TIEH saed90nm_max/TIEH string  libgen_usage_class    insert&remove
+saed90nm_max/TIEH saed90nm_max/TIEH string  mb_bussed_ports       
+saed90nm_max/TIEH saed90nm_max/TIEH string  mb_pin_map            
+saed90nm_max/TIEH saed90nm_max/TIEH string  mb_scan_chain_ports   
+saed90nm_max/TIEH saed90nm_max/TIEH int     multibit_width        0
+saed90nm_max/TIEH saed90nm_max/TIEH string  name                  TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH boolean new_pg_pin_syntax     true
+saed90nm_max/TIEH saed90nm_max/TIEH int     number_of_pins        1
+saed90nm_max/TIEH saed90nm_max/TIEH string  object_class          lib_cell
+saed90nm_max/TIEH saed90nm_max/TIEH string  object_id             731396048
+saed90nm_max/TIEH saed90nm_max/TIEH int     open_count            1
+saed90nm_max/TIEH saed90nm_max/TIEH string  open_mode             read
+saed90nm_max/TIEH saed90nm_max/TIEH string  output_voltage_range  
+saed90nm_max/TIEH saed90nm_max/TIEH boolean pad_cell              false
+saed90nm_max/TIEH saed90nm_max/TIEH string  read_in_by            
+saed90nm_max/TIEH saed90nm_max/TIEH string  sb_degen_fid          
+saed90nm_max/TIEH saed90nm_max/TIEH int     sb_port_cnt           0
+saed90nm_max/TIEH saed90nm_max/TIEH string  single_bit_degenerate 
+saed90nm_max/TIEH saed90nm_max/TIEH collection site_def           unit
+saed90nm_max/TIEH saed90nm_max/TIEH string  site_name             unit
+saed90nm_max/TIEH saed90nm_max/TIEH string  subset_name           
+saed90nm_max/TIEH saed90nm_max/TIEH boolean syn_library           true
+saed90nm_max/TIEH saed90nm_max/TIEH string  test_function_id      
+saed90nm_max/TIEH saed90nm_max/TIEH string  test_normal_func_id   
+saed90nm_max/TIEH saed90nm_max/TIEH string  threshold_voltage_group saed90cell
+saed90nm_max/TIEH saed90nm_max/TIEH collection top_module         saed90nm_max/TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH string  top_module_name       TIEH
+saed90nm_max/TIEH saed90nm_max/TIEH int     type                  2
+saed90nm_max/TIEH saed90nm_max/TIEH int     unique_cell_number    0
+saed90nm_max/TIEH saed90nm_max/TIEH string  unique_cell_prefix    
+saed90nm_max/TIEH saed90nm_max/TIEH int     unique_net_number     0
+saed90nm_max/TIEH saed90nm_max/TIEH string  unique_net_prefix     
+saed90nm_max/TIEH saed90nm_max/TIEH boolean use_for_size_only     false
+saed90nm_max/TIEH saed90nm_max/TIEH boolean use_frame_blockage    true
+saed90nm_max/TIEH saed90nm_max/TIEH string  user_function_class   
+Information: The returned value for lib_cell 'saed90nm_max:TIEH.timing' is the design specific attribute override defined within the current block 'mips_16_placement'. (ATTR-11)
+saed90nm_max/TIEH saed90nm_max/TIEH string  valid_purposes        power hold cts optimization
+saed90nm_max/TIEH saed90nm_max/TIEH boolean via0_alignment        false
+saed90nm_max/TIEH saed90nm_max/TIEH string  view_name             timing
+saed90nm_max/TIEH saed90nm_max/TIEH distance width                1.6000
+1

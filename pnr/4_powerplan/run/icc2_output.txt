@@ -1,0 +1,496 @@
+
+icc2_shell> set design "mips_16"
+mips_16
+icc2_shell> set std_worst "saed90nm_max.db"
+saed90nm_max.db
+icc2_shell> set target_library $std_worst
+saed90nm_max.db
+icc2_shell> set corner "worst"
+worst
+icc2_shell> 
+icc2_shell> set project_dir "/mnt/hgfs/Shared_files/${design}"
+/mnt/hgfs/Shared_files/mips_16
+icc2_shell> set Lib_path    "/home/ICer/Downloads/Lib"
+/home/ICer/Downloads/Lib
+icc2_shell> set dlib_path   "${project_dir}/pnr/2_design_lib/library"
+/mnt/hgfs/Shared_files/mips_16/pnr/2_design_lib/library
+icc2_shell> 
+icc2_shell> set prev_stage      "floorplan"
+floorplan
+icc2_shell> set current_stage   "powerplan"
+powerplan
+icc2_shell> 
+icc2_shell> #######################################################################
+icc2_shell> # --------------- dlib setup ------------- #
+icc2_shell> #######################################################################
+icc2_shell> 
+icc2_shell> open_block  ${dlib_path}/${design}.dlib:${design}_${prev_stage}.design
+Information: User units loaded from library 'saed90nm_max' (LNK-040)
+Opening block 'mips_16.dlib:mips_16_floorplan.design' in edit mode
+{mips_16.dlib:mips_16_floorplan.design}
+icc2_shell> 
+icc2_shell> # copying the (clean) block from the previous stage (dlib) to just preserve it and work on the new one which is the present stage (floorplan)
+icc2_shell> #to make sure if any errors happened through the current stage, it will be easy to restore the previous stage
+icc2_shell> copy_block -from_block ${design}.dlib:${design}_${prev_stage}.design -to_block ${design}_${current_stage}
+Information: Overwriting block 'mips_16_powerplan.design' in library 'mips_16.dlib'. (DES-025)
+{mips_16.dlib:mips_16_powerplan.design}
+icc2_shell> 
+icc2_shell> current_block ${design}_${current_stage}.design
+{mips_16.dlib:mips_16_powerplan.design}
+icc2_shell> start_gui
+Begin building search trees for block mips_16.dlib:mips_16_powerplan.design
+Done building search trees for block mips_16.dlib:mips_16_powerplan.design (time 0s)
+icc2_shell> link_block
+Using libraries: mips_16.dlib saed90nm_max saed90_ndm_physical_only
+Warning: In library mips_16.dlib, no block views exist for block mips_16. (LNK-064)
+Visiting block mips_16.dlib:mips_16_powerplan.design
+Design 'mips_16' was successfully linked.
+1
+icc2_shell> remove_pg_via_master_rules -all
+No via def rule is found.
+icc2_shell> remove_pg_patterns -all
+No pattern is found.
+icc2_shell> remove_pg_strategies -all
+All strategies have been removed.
+icc2_shell> remove_pg_strategy -all
+All strategy via rules have been removed.
+icc2_shell> # Creation VDD and VSS nets for Network (because VDD and VSS are not declared in the RTL)
+icc2_shell> # create_net also creates the ports
+icc2_shell> create_net -power VDD
+{VDD}
+icc2_shell> create_net -ground VSS
+{VSS}
+icc2_shell> set ring_offset 1;
+1
+icc2_shell> set ring_width 3;
+3
+icc2_shell> set ring_spacing 4;
+4
+icc2_shell> set hm_top M9;
+M9
+icc2_shell> set vm_top M8;
+M8
+icc2_shell> set name_strategy core_ring;
+core_ring
+icc2_shell> # Create region to define region pg network
+icc2_shell> create_pg_region power_ring_region -core -expand_by_edge "{{side: 1} {offset: $ring_offset}}  {{side: 2} {offset: $ring_offset}}  {{side: 3} {offset: $ring_offset}}  {{side: 4} {offset: $ring_offset}}"
+Define region based on core area.
+Expanding the region by: 
+{Horizontal offset: 0.000} {Vertical offset: 0.000} {Edge ID: 1 offset: 1.000} {Edge ID: 2 offset: 1.000} {Edge ID: 3 offset: 1.000} {Edge ID: 4 offset: 1.000} 
+Create region power_ring_region
+{power_ring_region}
+icc2_shell> # Create pattern rings structure {Layers, width, space}
+icc2_shell> create_pg_ring_pattern ring_pattern -horizontal_layer $hm_top -vertical_layer $vm_top -horizontal_width $ring_width -vertical_width $ring_width -horizontal_spacing $ring_spacing -vertical_spacing $ring_spacing
+Successfully create PG ring pattern ring_pattern.
+icc2_shell> # strategy for design rings
+icc2_shell> set_pg_strategy $name_strategy -pg_regions { power_ring_region } -pattern {{ name: ring_pattern} {nets: "VDD VSS"}}
+Successfully set PG strategy core_ring.
+icc2_shell> compile_pg -strategies $name_strategy
+Sanity check for inputs.
+No strategy-level via rule is specified, the default rule will be applied.
+Automatic PG net connection through connect_pg_net is disabled.
+Loading library and design information.
+Updating PG strategies.
+Updating strategy core_ring.
+Number of Standard Cells: 0
+Number of Hard Macros: 0
+Number of Pads: 0
+Creating rings.
+Creating via connection between strategies and existing shapes.
+Via DRC checking runtime 0.00 seconds.
+via connection runtime: 0 seconds.
+Removing dangling/floating wire/vias after DRC check.
+Start iteration 1:
+Checking potential dangling/floating power plan wires.
+Checking dangling/floating vias inside strategy core_ring.
+Checking 8 stacked vias:0% 10% 20% 30% 50% 60% 70% 80% 100%
+Finish removing all dangling or floating wires and vias.
+Commiting wires and vias.
+Committed 8 wires.
+Committing wires takes 0.00 seconds.
+Committed 8 vias.
+Committed 0 wires for via creation.
+Committing vias takes 0.00 seconds.
+Overall PG creation runtime: 0 seconds.
+Successfully compiled PG.
+Overall runtime: 0 seconds.
+1
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -start RulerTool
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {605.695 47.895} -scale 0.0147
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {609.585 47.910} -scale 0.0147
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {601.585 72.285} -scale 0.0147
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {602.655 72.285} -scale 0.0147
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -drag {{605.665 598.620} {605.560 598.620}} -scale 0.0147
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {602.760 598.575} -scale 0.0147
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {605.695 598.545} -scale 0.0147
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -reset
+icc2_shell> gui_remove_all_rulers -window [gui_get_current_window -types Layout -mru];  gui_remove_all_rulers -window global
+1
+icc2_shell> gui_show_man_page compile
+icc2_shell> # Create Mesh/Straps pattern {layer, width, offset, Pitch}
+icc2_shell> create_pg_mesh_pattern straps_vddvss -layers {{{vertical_layer : M8 } {width: 3} {pitch: 20} {spacing: interleaving} {offset:1} {trim:true}}  {{horizontal_layer : M9 } {width: 3} {pitch: 20} {spacing: interleaving} {offset:1} {trim:true}}}
+Successfully create mesh pattern straps_vddvss.
+1
+icc2_shell> # Strategy for design mesh
+icc2_shell> set_pg_strategy mesh_vddvss -core -pattern {{pattern: straps_vddvss} {nets: VDD VSS}} -extension {{stop: design_boundary_and_generate_pin}}
+Successfully set PG strategy mesh_vddvss.
+icc2_shell> # Compile/ Implement Mesh
+icc2_shell> compile_pg -strategies mesh_vddvss
+Sanity check for inputs.
+No strategy-level via rule is specified, the default rule will be applied.
+Automatic PG net connection through connect_pg_net is disabled.
+Loading library and design information.
+Updating PG strategies.
+Updating strategy mesh_vddvss.
+Number of Standard Cells: 0
+Number of Hard Macros: 0
+Number of Pads: 0
+Creating straps and vias in power plan.
+Creating wire shapes for strategies mesh_vddvss .
+User specified offset for layer M8 in pattern straps_vddvss may result in some wires (partially) out of routing area boundary.
+User specified offset for layer M9 in pattern straps_vddvss may result in some wires (partially) out of routing area boundary.
+Creating wire shapes runtime: 0 seconds
+Blockage cutting and DRC fixing for wire shapes for strategies mesh_vddvss .
+Check and fix DRC for 116 wires for strategy mesh_vddvss.
+Checking DRC for 116 wires:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Creating 116 wires after DRC fixing.
+Wire DRC checking runtime 0.00 seconds.
+Creating via shapes for strategies mesh_vddvss .
+Working on strategy mesh_vddvss.
+Number of detected intersections: 1682
+Total runtime of via shapes creation: 0 seconds
+Check and fix DRC for 1682 stacked vias for strategy mesh_vddvss.
+Checking DRC for 1682 stacked vias:0% 5% 10% 15% 20% 25% 30% 35% 40% 45% 50% 55% 60% 65% 70% 75% 80% 85% 90% 95% 100%
+Runtime of via DRC checking for strategy mesh_vddvss: 0.00 seconds.
+Creating via connection between strategies and existing shapes.
+Check and fix DRCs for 232 stacked vias.
+Checking DRC for 232 stacked vias:0% 5% 10% 15% 20% 25% 30% 35% 40% 45% 50% 55% 60% 65% 70% 75% 80% 85% 90% 95% 100%
+Via DRC checking runtime 0.00 seconds.
+via connection runtime: 0 seconds.
+Removing dangling/floating wire/vias after DRC check.
+Start iteration 1:
+Checking potential dangling/floating power plan wires.
+Checking dangling/floating vias inside strategy mesh_vddvss.
+Checking 1682 stacked vias:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Checking dangling/floating vias between strategies and existing shapes.
+Checking 232 stacked vias:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Finish removing all dangling or floating wires and vias.
+Commiting wires and vias.
+Committed 348 wires.
+Created 232 pins at design boundary.
+Committing wires takes 0.00 seconds.
+Committed 1914 vias.
+Committed 0 wires for via creation.
+Committing vias takes 0.00 seconds.
+Overall PG creation runtime: 1 seconds.
+Successfully compiled PG.
+Overall runtime: 1 seconds.
+1
+icc2_shell> 
+Begin building search trees for block mips_16.dlib:mips_16_powerplan.design
+Done building search trees for block mips_16.dlib:mips_16_powerplan.design (time 0s)
+icc2_shell> # Create Mesh 2
+icc2_shell> create_pg_mesh_pattern straps_vddvss2 -layers {{{vertical_layer : M6 } {width: 1.5} {pitch: 30} {spacing: interleaving} {offset:1} {trim:true}}  {{horizontal_layer : M7 } {width: 1.5} {pitch: 30} {spacing: interleaving} {offset:1} {trim:true}}}
+Successfully create mesh pattern straps_vddvss2.
+1
+icc2_shell> # Strategy for design mesh
+icc2_shell> set_pg_strategy mesh_vddvss2 -core -pattern {{pattern: straps_vddvss2} {nets: VDD VSS}} -extension {{stop: design_boundary_and_generate_pin}}
+Successfully set PG strategy mesh_vddvss2.
+icc2_shell> #-extension  {{stop: outermost_ring}}
+icc2_shell> # Compile/ Implement Mesh
+icc2_shell> compile_pg -strategies mesh_vddvss2
+Sanity check for inputs.
+No strategy-level via rule is specified, the default rule will be applied.
+Automatic PG net connection through connect_pg_net is disabled.
+Loading library and design information.
+Updating PG strategies.
+Updating strategy mesh_vddvss2.
+Number of Standard Cells: 0
+Number of Hard Macros: 0
+Number of Pads: 0
+Creating straps and vias in power plan.
+Creating wire shapes for strategies mesh_vddvss2 .
+Creating wire shapes runtime: 0 seconds
+Blockage cutting and DRC fixing for wire shapes for strategies mesh_vddvss2 .
+Check and fix DRC for 80 wires for strategy mesh_vddvss2.
+Checking DRC for 80 wires:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Creating 80 wires after DRC fixing.
+Wire DRC checking runtime 0.00 seconds.
+Creating via shapes for strategies mesh_vddvss2 .
+Working on strategy mesh_vddvss2.
+Number of detected intersections: 800
+Total runtime of via shapes creation: 0 seconds
+Check and fix DRC for 800 stacked vias for strategy mesh_vddvss2.
+Checking DRC for 800 stacked vias:0% 5% 10% 15% 20% 25% 30% 35% 40% 45% 50% 55% 60% 65% 70% 75% 80% 85% 90% 95% 100%
+Runtime of via DRC checking for strategy mesh_vddvss2: 0.00 seconds.
+Creating via connection between strategies and existing shapes.
+Check and fix DRCs for 2516 stacked vias.
+Checking DRC for 2516 stacked vias:0% 5% 10% 15% 20% 25% 30% 35% 40% 45% 50% 55% 60% 65% 70% 75% 80% 85% 90% 95% 100%
+Via DRC checking runtime 0.00 seconds.
+via connection runtime: 0 seconds.
+Removing dangling/floating wire/vias after DRC check.
+Start iteration 1:
+Checking potential dangling/floating power plan wires.
+Checking dangling/floating vias inside strategy mesh_vddvss2.
+Checking 800 stacked vias:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Checking dangling/floating vias between strategies and existing shapes.
+Checking 2516 stacked vias:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Start iteration 2:
+Checking potential dangling/floating power plan wires.
+Checking dangling/floating vias inside strategy mesh_vddvss2.
+Checking 800 stacked vias:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Checking dangling/floating vias between strategies and existing shapes.
+Checking 2287 stacked vias:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Finish removing all dangling or floating wires and vias.
+Commiting wires and vias.
+Committed 240 wires.
+Created 160 pins at design boundary.
+Committing wires takes 0.00 seconds.
+Committed 5194 vias.
+Committed 0 wires for via creation.
+Committing vias takes 0.00 seconds.
+Overall PG creation runtime: 1 seconds.
+Successfully compiled PG.
+Overall runtime: 1 seconds.
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal9} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal8} -quiet]
+1
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -start MoveTool
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -reset
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -start MoveTool
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {-3.365 1.225} -scale 0.0256
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {-10.380 5.830} -scale 0.0256
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -reset
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -start RulerTool
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {-8.185 7.350} -scale 0.0016
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {-8.180 7.185} -scale 0.0016
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -reset
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -start RulerTool
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {-8.220 4.485} -scale 0.0032
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -add_point {-8.225 4.300} -scale 0.0032
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -reset
+icc2_shell> set rail_strategy rails_M1;
+rails_M1
+icc2_shell> set rail_pattern std_cell_rail;
+std_cell_rail
+icc2_shell> set rail_layer M1;
+M1
+icc2_shell> set rail_width 0.16;
+0.16
+icc2_shell> # Create rails {layer, Width}
+icc2_shell> create_pg_std_cell_conn_pattern $rail_pattern -layer $rail_layer -rail_width $rail_width
+Successfully create standard cell rail pattern std_cell_rail.
+icc2_shell> # Define strategies
+icc2_shell> set_pg_strategy $rail_strategy -core -pattern {{name: std_cell_rail} {nets: VDD VSS}}
+Successfully set PG strategy rails_M1.
+icc2_shell> compile_pg -strategies $rail_strategy
+Sanity check for inputs.
+No strategy-level via rule is specified, the default rule will be applied.
+Automatic PG net connection through connect_pg_net is disabled.
+Loading library and design information.
+Updating PG strategies.
+Updating strategy rails_M1.
+Number of Standard Cells: 0
+Number of Hard Macros: 0
+Number of Pads: 0
+Creating standard cell rails.
+Creating standard cell rails for strategy rails_M1.
+DRC checking and fixing for standard cell rail strategy rails_M1.
+Checking DRC for 206 wires:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Creating 206 wires after DRC fixing.
+Wire DRC checking runtime 0.00 seconds.
+Creating via connection between strategies and existing shapes.
+Check and fix DRCs for 10094 stacked vias.
+Checking DRC for 10094 stacked vias:0% 5% 10% 15% 20% 25% 30% 35% 40% 45% 50% 55% 60% 65% 70% 75% 80% 85% 90% 95% 100%
+Via DRC checking runtime 5.00 seconds.
+via connection runtime: 5 seconds.
+Removing dangling/floating wire/vias after DRC check.
+Start iteration 1:
+Checking potential dangling/floating power plan wires.
+Checking dangling/floating vias between strategies and existing shapes.
+Checking 9167 stacked vias:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Start iteration 2:
+Checking potential dangling/floating power plan wires.
+Checking dangling/floating vias between strategies and existing shapes.
+Checking 8775 stacked vias:0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+Finish removing all dangling or floating wires and vias.
+Commiting wires and vias.
+Committed 206 wires.
+Committing wires takes 0.00 seconds.
+Committed 56746 vias.
+Committed 3916 wires for via creation.
+Committing vias takes 0.00 seconds.
+Overall PG creation runtime: 5 seconds.
+Successfully compiled PG.
+Overall runtime: 5 seconds.
+1
+icc2_shell> 
+Begin building search trees for block mips_16.dlib:mips_16_powerplan.design
+Done building search trees for block mips_16.dlib:mips_16_powerplan.design (time 0s)
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal6} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal7} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal1} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal1} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal1} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal1} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal8} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal9} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal9} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal8} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal1} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal8} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal9} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal6} -quiet]
+1
+icc2_shell> gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal7} -quiet]
+1
+icc2_shell> # Connect pins of cells and submodules to rails
+icc2_shell> # hierarchical (include top module + sub modules)
+icc2_shell> connect_pg_net -net VDD [get_pins -hierarchical */VDD]
+icc2_shell> connect_pg_net -net VSS [get_pins -hierarchical */VSS]
+icc2_shell> check_pg_drc
+Command check_pg_drc started  at Sat Aug 29 06:54:46 2026
+Command check_pg_drc finished at Sat Aug 29 06:54:48 2026
+CPU usage for check_pg_drc: 1.19 seconds ( 0.00 hours)
+Elapsed time for check_pg_drc: 1.68 seconds ( 0.00 hours)
+No errors found.
+icc2_shell> check_pg_connectivity
+Loading cell instances...
+Number of Standard Cells: 13831
+Number of Macro Cells: 0
+Number of IO Pad Cells: 0
+Number of Blocks: 0
+Loading P/G wires and vias...
+Number of VDD Wires: 421
+Number of VDD Vias: 28281
+Number of VDD Terminals: 196
+Number of VSS Wires: 3905
+Number of VSS Vias: 35581
+Number of VSS Terminals: 196
+**************Verify net VDD connectivity*****************
+  Number of floating wires: 0
+  Number of floating vias: 0
+  Number of floating std cells: 13831
+  Number of floating hard macros: 0
+  Number of floating I/O pads: 0
+  Number of floating terminals: 0
+  Number of floating hierarchical blocks: 0
+************************************************************
+**************Verify net VSS connectivity*****************
+  Number of floating wires: 0
+  Number of floating vias: 0
+  Number of floating std cells: 13831
+  Number of floating hard macros: 0
+  Number of floating I/O pads: 0
+  Number of floating terminals: 0
+  Number of floating hierarchical blocks: 0
+************************************************************
+Overall runtime: 0 seconds.
+icc2_shell> check_pg_missing_vias
+Check net VDD vias...
+Number of missing vias: 0
+Checking net VDD vias took 0 seconds.
+Check net VSS vias...
+Number of missing vias: 0
+Checking net VSS vias took 0 seconds.
+Overall runtime: 0 seconds.
+icc2_shell> gui_mouse_tool -window [gui_get_current_window -types Layout -mru] -start MoveTool
+icc2_shell> gui_show_man_page check_pg_connectivity
+icc2_shell> # Connectivity check for PG networks, standard cell PG pins
+icc2_shell> check_pg_connectivity -check_std_cell_pins none;             # ignore the floating std cells for now
+Loading cell instances...
+Number of Standard Cells: 0
+Number of Macro Cells: 0
+Number of IO Pad Cells: 0
+Number of Blocks: 0
+Loading P/G wires and vias...
+Number of VDD Wires: 421
+Number of VDD Vias: 28281
+Number of VDD Terminals: 196
+Number of VSS Wires: 3905
+Number of VSS Vias: 35581
+Number of VSS Terminals: 196
+**************Verify net VDD connectivity*****************
+  Number of floating wires: 0
+  Number of floating vias: 0
+  Number of floating std cells: 0
+  Number of floating hard macros: 0
+  Number of floating I/O pads: 0
+  Number of floating terminals: 0
+  Number of floating hierarchical blocks: 0
+************************************************************
+**************Verify net VSS connectivity*****************
+  Number of floating wires: 0
+  Number of floating vias: 0
+  Number of floating std cells: 0
+  Number of floating hard macros: 0
+  Number of floating I/O pads: 0
+  Number of floating terminals: 0
+  Number of floating hierarchical blocks: 0
+************************************************************
+Overall runtime: 0 seconds.
+icc2_shell> #######################################################################
+icc2_shell> # --------------- Files Handling ------------- #
+icc2_shell> #######################################################################
+icc2_shell> sh rm    -r ../results/reports
+icc2_shell> sh rm    -r ../results/outputs
+icc2_shell> sh mkdir -p ../results/reports
+icc2_shell> sh mkdir -p ../results/outputs
+icc2_shell> #######################################################################
+icc2_shell> # --------------- Reports & Outputs ------------- #
+icc2_shell> #######################################################################
+icc2_shell> check_pg_drc                    > ../results/reports/pg_drc.rpt
+icc2_shell> check_pg_connectivity           > ../results/reports/pg_connectivity.rpt
+icc2_shell> check_pg_missing_vias           > ../results/reports/missing_via.rpt
+icc2_shell> write_verilog -include {all}    ../results/outputs/${design}.v
+1
+icc2_shell> write_sdc -output               ../results/outputs/${design}.sdc
+1
+icc2_shell> write_def ../results/outputs/${design}.def
+****************************************
+Report : Data Mismatches
+Version: O-2018.06-SP1
+Date   : Sat Aug 29 06:57:35 2026
+****************************************
+No mismatches exist on the design.
+---------------------------------------
+Number of Written DEF Constructs
+---------------------------------------
+VERSION                        : 1
+DIVIDERCHAR                    : 1
+BUSBITCHARS                    : 1
+DESIGN                         : 1
+UNITS                          : 1
+PROPERTYDEFINITIONS            : 1
+DIEAREA                        : 1
+ROW                            : 205
+TRACKS                         : 18
+VIAS                           : 31
+COMPONENTS                     : 13831
+PINS                           : 39
+PINPROPERTIES                  : 37
+SPECIALNETS                    : 2
+NETS                           : 13881
+1
+icc2_shell> #######################################################################
+icc2_shell> # --------------- Save Block ------------- #
+icc2_shell> #######################################################################
+icc2_shell> save_block -as ${design}_${current_stage} ${design}.dlib:${design}_${current_stage}.design
+Information: Saving block 'mips_16.dlib:mips_16_powerplan.design'
+1
+icc2_shell> 

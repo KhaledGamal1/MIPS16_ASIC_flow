@@ -1,0 +1,443 @@
+#@ # 
+#@ # Running icc2_shell Version O-2018.06-SP1 for linux64 -- Jul 17, 2018
+#@ # Date:   Sat Aug 29 09:20:39 2026
+#@ # Run by: ICer@IC_EDA
+#@ 
+
+set design "mips_16"
+set std_worst "saed90nm_max.db"
+set target_library $std_worst
+set corner "worst"
+set project_dir "/mnt/hgfs/Shared_files/${design}"
+set Lib_path    "/home/ICer/Downloads/Lib"
+set dlib_path   "${project_dir}/pnr/2_design_lib/library"
+set prev_stage      "powerplan"
+set current_stage   "placement"
+open_block  ${dlib_path}/${design}.dlib:${design}_${prev_stage}.design
+# copying the (clean) block from the previous stage (dlib) to just preserve it and work on the new one which is the present stage (floorplan)
+#to make sure if any errors happened through the current stage, it will be easy to restore the previous stage
+copy_block -from_block ${design}.dlib:${design}_${prev_stage}.design -to_block ${design}_${current_stage}
+current_block ${design}_${current_stage}.design
+start_gui
+gui_set_pref_value -category {SelectByNamePalette} -key {ObjectType} -value {Logical Cells}
+link_block
+win_set_filter -visible -class cell -filter {hard_macro_margin hard_margin route_blockage_margin soft_margin}
+win_set_filter -visible -class placement_blockage -filter {wiring} -layer {0-77}
+win_set_filter -expand_cell_types {soft_macro  }
+win_set_select_class -visible {cell port bound routing_blockage shaping_blockage pg_region pin_blockage block_shielding topology_node topology_edge core_area die_area edit_group shape via terminal fill_cell placement_blockage }
+win_set_filter -class cell -filter {cell_array hard_macro_margin hard_margin route_blockage_margin soft_margin}
+win_set_filter -class placement_blockage -filter {wiring} -layer {0-77}
+win_set_select_class {cell port bound routing_blockage shaping_blockage pg_region pin_blockage topology_node topology_edge edit_group shape via placement_blockage }
+# --- Ensure the PG network is good Execpt Std cells because not placed
+check_pg_connectivity -check_std_cell_pins none
+# --- Catch PG shorts/spacing issues early before placement
+check_pg_drc -ignore_std_cells
+# --- Ensure all required stack-ups are present for PG.
+check_pg_missing_vias
+# --- Legality check before placement for Macros and IPs (not required at this stage)
+# check_legality -verbose
+# --- check for issues that could block placement (most important)
+check_design -checks pre_placement_stage
+suppress_message -force CMD-013
+suppress_message -force CMD-013; report_design_mismatch -check_design >> /mnt/hgfs/Shared_files/mips_16/pnr/5_placement/run/check_design2026Aug29092329.log
+suppress_message -force CMD-013; check_scan_chain >> /mnt/hgfs/Shared_files/mips_16/pnr/5_placement/run/check_design2026Aug29092329.log
+suppress_message -force CMD-013; check_mv_design >> /mnt/hgfs/Shared_files/mips_16/pnr/5_placement/run/check_design2026Aug29092329.log
+suppress_message -force CMD-013; check_rp_constraints >> /mnt/hgfs/Shared_files/mips_16/pnr/5_placement/run/check_design2026Aug29092329.log
+suppress_message -force CMD-013; check_timing >> /mnt/hgfs/Shared_files/mips_16/pnr/5_placement/run/check_design2026Aug29092329.log
+suppress_message -force CMD-013; check_hier_design -stage pre_placement >> /mnt/hgfs/Shared_files/mips_16/pnr/5_placement/run/check_design2026Aug29092329.log
+unsuppress_message CMD-013
+# --- Enable advanced legalizer for better legalization quality and row alignment.
+set_app_options -name place.legalize.enable_advanced_legalizer   -value true
+set_app_options -name place.legalize.legalizer_search_and_repair -value true
+# --- Let placer control density and timing automatically < balance timing vs congestion>
+set_app_options -name place.coarse.auto_density_control -value true
+set_app_options -name place.coarse.auto_timing_control -value true
+# --- Improves legalization predictability during coarse placeme
+set_app_options -name place.coarse.legalizer_driven_placement -value true
+# --- If you need continue without def file
+set_app_options -list {place.coarse.continue_on_missing_scandef {true}}
+set_app_options -list {place.coarse.detect_detours {true}}
+# --- OPtimizations options
+# --- Limit Fanout of Tie cell/fanout nets
+set_app_options -list {opt.tie_cell.max_fanout 1}
+set_app_options -list {opt.common.max_fanout {10}}
+# --- Enhance for timing
+set_app_options -list {opt.timing.effort {high}}
+# --- Enhance for Congestion
+set_app_options -list {place_opt.congestion.effort {high}}
+# ---- Prefix for Inserted Cells through HFNS
+set_app_options -name opt.common.user_instance_name_prefix -value "PLACE_"
+report_ideal_network
+remove_ideal_network {fun_reset scan_reset test_mode}
+# --- Keep clocks ideal during placement (CTS will build them later)
+report_ideal_network
+report_net_fanout -threshold 25
+create_placement -effort high                                  -timing_driven                                -congestion                                   -congestion_effort high
+win_select_objects -within {{-146.855 93.845} {1333.355 292.395}} -slct_targets global -slct_targets_operation clear
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {301.065 282.985}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {301.065 282.985}
+gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal9} -quiet]
+gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal8} -quiet]
+gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal7} -quiet]
+gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal6} -quiet]
+win_set_filter -visible -class routing_blockage -layer {19 22 25 28}
+win_set_filter -visible -class shape -filter {} -layer {19 22 25 28}
+win_set_filter -visible -class via -filter {} -layer {19 22 25 28}
+win_set_filter -visible -class terminal -filter {}  -layer {19 22 25 28}
+win_set_filter -class routing_blockage -layer {19 22 25 28}
+win_set_filter -class shape -filter {} -layer {19 22 25 28}
+win_set_filter -class via -filter {} -layer {19 22 25 28}
+win_select_objects -slct_targets global -at {326.000 301.100} -radius 0.2353
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {303.420 290.280}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {303.420 290.280}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {303.450 290.260}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {301.665 287.615}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {301.775 287.610}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {303.300 272.870}
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showPACore -value true
+win_set_filter -visible -class site_row -filter {io}
+win_set_select_class -visible {cell port bound routing_blockage shaping_blockage pg_region pin_blockage block_shielding topology_node topology_edge core_area die_area site_row edit_group shape via terminal fill_cell placement_blockage }
+# ---- Legalized placement each illegal cell will be legal location
+legalize_placement -incremental
+win_select_objects -within {{276.420 273.500} {278.065 273.795}} -slct_targets global -slct_targets_operation clear
+win_select_objects -slct_targets global -at {279.655 273.380} -radius 0.0588
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {307.455 285.785}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {307.415 285.810}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {307.415 285.810}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {381.995 289.575}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {381.995 289.575}
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M6 -value true
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M7 -value true
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M8 -value true
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M9 -value true
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_NWELL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_PO -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_PODMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_CO -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M1 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M1DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_VIA1 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M2 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M2DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_VIA2 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M3 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M3DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_VIA3 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M4 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M4DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_VIA4 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M5 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M5DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_VIA5 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M6 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M6DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_VIA6 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M7 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M7DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_VIA7 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M8 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M8DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_VIA8 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M9 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M9DMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_BJTDMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DIFF -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DDMY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DIFF_25 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DIOD -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM1EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM2EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM3EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM4EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM5EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM6EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM7EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM8EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DM9EXCL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_DNW -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_ESD_25 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_HOTNWL -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_HVTIMP -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_IP -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_LOGO -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_LVTIMP -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M1PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M2PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M3PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M4PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M5PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M6PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M7PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M8PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_M9PIN -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_NIMP -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_PAD -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_PIMP -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RDIFF -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM1 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM2 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM3 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM4 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM5 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM6 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM7 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM8 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RM9 -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RNW -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_RPOLY -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_SBLK -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_prBoundary -value false
+gui_set_setting -window [gui_get_current_window -types Layout -mru] -setting showLayer_UNASSIGNED -value false
+win_set_filter -visible -class routing_blockage -layer {0-77}
+win_set_filter -visible -class shape -filter {} -layer {0-77}
+win_set_filter -visible -class via -filter {} -layer {0-77}
+win_set_filter -visible -class terminal -filter {}  -layer {0-77}
+win_set_filter -class routing_blockage -layer {0-77}
+win_set_filter -class shape -filter {} -layer {0-77}
+win_set_filter -class via -filter {} -layer {0-77}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {232.370 293.335}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {233.310 293.335}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {233.310 293.335}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {220.610 290.045}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {220.610 290.045}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {220.635 290.025}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {225.575 289.965}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {225.580 289.960}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {225.550 289.925}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {222.020 289.810}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {229.080 285.810}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {394.225 281.105}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {482.680 300.865}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {445.980 305.570}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {458.685 306.040}
+change_selection 
+gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal9} -quiet]
+gui_set_layout_layer_visibility -toggle [get_layers -filter {mask_name == metal9} -quiet]
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {388.580 416.610}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {true}
+gui_set_map_option -map {cellDensityMap} -option {area_type} -value {Reset}
+gui_set_map_option -map {cellDensityMap} -option {area_type} -value {WholeDesign}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {402.695 412.845}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {473.270 394.965}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {522.205 376.145}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {611.760 277.165}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {611.760 277.165}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {397.130 346.800}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {352.895 357.450}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {true}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {true}
+report_net_fanout -threshold 20
+# --- TO be report all atrbuite about specfic cell
+report_attributes -application -nosplit [get_lib_cell */TIEH] > TIEH_attr.rpt
+# --- Change some attrbuite saed90nm_max_hvt/TIEL_HVT
+set_attribute [get_lib_cells */*TIEH*] dont_touch false
+set_attribute [get_lib_cells */*TIEL*] dont_touch false
+set_attribute [get_lib_cells */*TIEL*] dont_use false
+set_attribute [get_lib_cells */*TIEH*] dont_use false
+place_opt
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+set_app_options -as_user_default -list {route.global.debug_compact_coef 4}
+set_app_options -as_user_default -list {route.global.debug_compact_coef 1}
+
+
+
+
+set_app_options -as_user_default -list {route.global.debug_compact_coef 4}
+set_app_options -as_user_default -list {route.global.debug_compact_coef 1}
+win_select_objects -within {{-249.215 71.545} {1060.685 265.700}} -slct_targets global -slct_targets_operation clear
+sizeof_collection [get_cells "PLACE_*"]
+change_selection 
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 0.5 -at_point {382.385 261.600}
+gui_zoom -window [gui_get_current_window -types Layout -view] -factor 2 -at_point {346.340 378.745}
+# ---- Get library cells to insert as spare cells
+get_lib_cell */*NAND*
+# --- add spare cells without legalized
+add_spare_cells -num_cells {NAND2X1 4
+                            INVX1   4
+                            OR2X1   3
+                            SDFFX1  3
+                            MUX21X1 4}                                       -cell_name SpareCell                                         -random_distribution                                         -input_pin_connect_type tie_low
+set spare_cells [get_cells *SpareCell*]
+# --- Spread Cells
+spread_spare_cells -cells $spare_cells
+# --- legalized Sparecells
+place_eco_cells -cells $spare_cells -legalize_only
+#######################################################################
+# --------------- Connect PG ------------- #
+#######################################################################
+connect_pg_net -net "VDD" [get_pins -hierarchical "*/VDD" ]
+connect_pg_net -net "VSS" [get_pins -hierarchical "*/VSS" ]
+report_net_fanout -threshold 25
+report_net_fanout -threshold 20
+report_net_fanout -threshold 15
+report_net_fanout -threshold 10
+report_qor -summary
+win_select_objects -within {{-349.975 112.505} {-90.290 128.890}} -slct_targets global -slct_targets_operation clear
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+set_app_options -list {place.coarse.max_density {0.3}}
+place_opt
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+set_app_options -as_user_default -list {route.global.debug_compact_coef 4}
+set_app_options -as_user_default -list {route.global.debug_compact_coef 1}
+
+
+
+
+set_app_options -as_user_default -list {route.global.debug_compact_coef 4}
+set_app_options -as_user_default -list {route.global.debug_compact_coef 1}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {true}
+create_placement -effort high                                  -timing_driven                                -congestion                   -incremental                  -congestion_effort high
+# ---- Legalized placement each illegal cell will be legal location
+legalize_placement -incremental
+report_net_fanout -threshold 20
+win_select_objects -within {{-194.330 143.635} {-177.945 151.010}} -slct_targets global -slct_targets_operation clear
+# --- TO be report all atrbuite about specfic cell
+report_attributes -application -nosplit [get_lib_cell */TIEH] > TIEH_attr.rpt
+# --- Change some attrbuite saed90nm_max_hvt/TIEL_HVT
+set_attribute [get_lib_cells */*TIEH*] dont_touch false
+set_attribute [get_lib_cells */*TIEL*] dont_touch false
+set_attribute [get_lib_cells */*TIEL*] dont_use false
+set_attribute [get_lib_cells */*TIEH*] dont_use false
+#######################################################################
+# --------------- placement optimization ------------- #
+#######################################################################
+place_opt
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+redirect $::sh_dev_null { set_app_options -name opt.internal.current_block_utilization -value [report_utilization] }
+
+set_app_options -as_user_default -list {route.global.debug_compact_coef 4}
+set_app_options -as_user_default -list {route.global.debug_compact_coef 1}
+
+
+
+
+set_app_options -as_user_default -list {route.global.debug_compact_coef 4}
+set_app_options -as_user_default -list {route.global.debug_compact_coef 1}
+sizeof_collection [get_cells "PLACE_*"]
+#-- get_lib_cells >> INV/BUFF >> LEF (NDM Creation as layout view)
+# ---- not found Inv/BUFF cells to implemen
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {true}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {false}
+gui_show_map -window [gui_get_current_window -types Layout -mru] -map {cellDensityMap} -show {true}
+# ---- Get library cells to insert as spare cells
+get_lib_cell */*NAND*
+# --- add spare cells without legalized
+add_spare_cells -num_cells {NAND2X1_HVT 20
+                            INVX1   4
+                            OR2X1   3
+                            SDFFX1  3
+                            MUX21X1 4}                                       -cell_name SpareCell                                         -random_distribution                                         -input_pin_connect_type tie_low
+set spare_cells [get_cells *SpareCell*]
+# --- Spread Cells
+spread_spare_cells -cells $spare_cells
+# --- legalized Sparecells
+place_eco_cells -cells $spare_cells -legalize_only
+#######################################################################
+# --------------- Tie Cells ------------- #
+#######################################################################
+set tie_cells_low      [get_lib_cells */*TIEL* ]
+set tie_cells_high     [get_lib_cells */*TIEH* ]
+set_attribute [get_lib_cells */*TIEH*] dont_touch false
+add_tie_cells -objects $spare_cells                            -tie_low_lib_cells $tie_cells_low                -tie_high_lib_cells $tie_cells_high               -legalize
+set_dont_touch $spare_cells
+set_fixed_objects $spare_cells
+#######################################################################
+# --------------- Connect PG ------------- #
+#######################################################################
+connect_pg_net -net "VDD" [get_pins -hierarchical "*/VDD" ]
+connect_pg_net -net "VSS" [get_pins -hierarchical "*/VSS" ]
+#######################################################################
+# --------------- Files Handling ------------- #
+#######################################################################
+sh rm    -r ../results/reports
+sh rm    -r ../results/outputs
+sh mkdir -p ../results/reports
+sh mkdir -p ../results/outputs
+#######################################################################
+# --------------- Reports ------------- #
+#######################################################################
+report_cell                                > ../results/reports/cells.rpt
+report_nets                                > ../results/reports/nets.rpt
+report_qor                                 > ../results/reports/qor.rpt
+report_timing                              > ../results/reports/timing.rpt
+report_timing -delay max -max_paths 2      > ../results/reports/two_critical_path_setup.rpt
+report_utilization                         > ../results/reports/utilization.rpt
+get_placement_blockages                    > ../results/reports/Blockage.rpt
+check_pg_drc                               > ../results/reports/pg_drc.rpt
+check_pg_connectivity                      > ../results/reports/pg_connectivity.rpt
+check_pg_missing_vias                      > ../results/reports/missing_via.rpt
+#######################################################################
+# --------------- Save Block ------------- #
+#######################################################################
+write_def                  ../results/outputs/${design}.def
+write_verilog -include {all} ../results/outputs/${design}.v
+write_sdc -output          ../results/outputs/${design}.sdc
+save_block
+report_net_fanout -threshold 25
+report_qor -summary

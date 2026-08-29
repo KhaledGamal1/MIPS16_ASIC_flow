@@ -1,0 +1,53 @@
+****************************************
+Report : timing
+        -path_type full
+        -delay_type max
+        -max_paths 1
+        -report_by design
+Design : mips_16
+Version: O-2018.06-SP1
+Date   : Sat Aug 29 10:04:38 2026
+****************************************
+
+  Startpoint: pc_current_reg_2_ (rising edge-triggered flip-flop clocked by fun_clk)
+  Endpoint: pc_current_reg_14_ (rising edge-triggered flip-flop clocked by fun_clk)
+  Mode: default
+  Corner: default
+  Scenario: default
+  Path Group: fun_clk
+  Path Type: max
+
+  Point                                            Incr      Path  
+  ------------------------------------------------------------------------
+  clock fun_clk (rise edge)                        0.00      0.00
+  clock network delay (ideal)                      0.00      0.00
+
+  pc_current_reg_2_/CLK (DFFARX1)                  0.00      0.00 r
+  pc_current_reg_2_/Q (DFFARX1)                    0.65      0.65 r
+  U190/Q (AND2X1)                                  0.24      0.89 r
+  U177/Q (AND2X1)                                  0.21      1.10 r
+  U191/Q (AND2X1)                                  0.21      1.31 r
+  U200/QN (NAND2X0)                                0.28      1.59 f
+  U196/ZN (INVX0)                                  0.16      1.75 r
+  U171/Q (AND2X1)                                  0.40      2.15 r
+  U213/Q (AND2X1)                                  0.29      2.44 r
+  U372/QN (NAND2X0)                                0.16      2.60 f
+  U161/Q (XOR2X1)                                  0.29      2.89 f
+  U160/QN (OAI21X1)                                0.36      3.25 r
+  pc_current_reg_14_/D (DFFARX1)                   0.00      3.25 r
+  data arrival time                                          3.25
+
+  clock fun_clk (rise edge)                       15.00     15.00
+  clock network delay (ideal)                      0.00     15.00
+  pc_current_reg_14_/CLK (DFFARX1)                 0.00     15.00 r
+  clock uncertainty                               -0.45     14.55
+  library setup time                              -0.34     14.21
+  data required time                                        14.21
+  ------------------------------------------------------------------------
+  data required time                                        14.21
+  data arrival time                                         -3.25
+  ------------------------------------------------------------------------
+  slack (MET)                                               10.96
+
+
+1
